@@ -1,0 +1,16 @@
+Este arhcivo contendrà todas las herramientas tecnologicas necesarias para el proyecto.
+
+FRONTEND
+
+1)Angular version 18
+2)Tailwind ultima version.
+3)PrimeNg
+4)Toastr
+
+BACKEND
+
+1)Base de datos en la nube (MYSQL para empezar) 
+2)Springboot, SpringSecurity
+3)Oaut
+4)Apis de google
+
