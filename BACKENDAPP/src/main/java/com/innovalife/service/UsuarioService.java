@@ -1,11 +1,11 @@
 package com.innovalife.service;
 
+import com.innovalife.entity.Usuario;
 import org.springframework.stereotype.Service;
 
-import com.innovalife.entity.UsuarioEntity;
 import com.innovalife.utils.GenericServiceAPI;
 
 @Service
-public interface UsuarioService extends GenericServiceAPI<UsuarioEntity, String>{
+public interface UsuarioService extends GenericServiceAPI<Usuario, String>{
 
 }
