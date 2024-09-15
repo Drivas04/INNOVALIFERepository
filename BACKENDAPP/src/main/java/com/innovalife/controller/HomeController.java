@@ -23,8 +23,5 @@ public class HomeController {
         return "Bienvenido!";
     }
 
-    @RequestMapping("/login")
-    public String logins() {
-        return "Bienvenido!";
-    }
+
 }
