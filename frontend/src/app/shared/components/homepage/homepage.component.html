@@ -1,2 +1,55 @@
-<p> homepage works </p>
+<app-homeheader></app-homeheader>
+<div class="bg-main flex max-w-full  justify-center items-center h-[70vh] " > 
+  <div class="justify-center gap-20 sm:p-20 items-center max-w-full flex flex-col ">  
+    <div class="text-txt main font-extrabold text-4xl text-center w-80">
+      Lo que tenemos para ti
+    </div>
+    <div class="flex flex-col space-y-4 gap-8 ">
+      <button routerLink="/auth" class="text-white text-lg font-medium py-3 px-6 w-60 rounded-lg bg-butons">
+        Soy usuario
+      </button>
+    </div>
+  </div>  
+</div>
+<div class="mx-auto py-12 bg-main ">
+<div class="flex justify-center items-center"> 
+  <h2 class="text-center text-2xl font-extrabold text-gray-800 mb-8 w-[50vw]">
+  Nuestra aplicación ofrece muchas ventajas..
+  </h2>
+</div>
 
+<div class="w-[50vw] grid grid-cols-2  m-auto p-4 gap-16 sm:grid-cols-1 md:w-[85vw]">
+  <!-- Primer beneficio -->
+  <div class="p-6 rounded-lg shadow-md text-center bg-white">
+    <h3 class="text-lg font-extrabold mb-4">Gestionar tu tiempo</h3>
+    <p class="font-extralight">
+      Ya no tendrás que esperar largas filas y por lo tanto no perderás tiempo.
+    </p>
+  </div>
+
+  <!-- Segundo beneficio -->
+  <div class="bg-white p-6 rounded-lg shadow-md text-center">
+    <h3 class="text-lg font-extrabold mb-4">Reservar online</h3>
+    <p class="font-extralight">
+      Por medio de la aplicación podrás solicitar tu cita de manera sencilla y en cualquier lugar.
+    </p>
+  </div>
+
+  <!-- Tercer beneficio -->
+  <div class="bg-white p-6 rounded-lg shadow-md text-center">
+    <h3 class="text-lg font-extrabold mb-4">Manejo de tus servicios</h3>
+    <p class="font-extralight">
+      Como usuario tienes el control de tus actividades, esto te permitirá hacer los cambios que necesites.
+    </p>
+  </div>
+
+  <!-- Cuarto beneficio -->
+  <div class="bg-white p-6 rounded-lg shadow-md text-center">
+    <h3 class="text-lg font-extrabold mb-4">Flexibilidad</h3>
+    <p class="font-extralight">
+      Cualquier persona de cualquier edad en cualquier dispositivo y en cualquier momento podrá gestionar sus actividades.
+    </p>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>
