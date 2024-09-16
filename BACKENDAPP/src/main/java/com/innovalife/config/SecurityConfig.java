@@ -11,17 +11,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(registry ->
-                        registry.requestMatchers("/", "/login", "/registrarse", "/completar-registro").permitAll()
-                                .anyRequest().authenticated()
-                )
-                .oauth2Login(Customizer.withDefaults())
-                .sessionManagement(sessionManagement ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                                .maximumSessions(1)
-                                .maxSessionsPreventsLogin(false))
-                .formLogin(Customizer.withDefaults());
-        return http.build();
+        return http
+                .csrf(c->c.disable())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**")
+                .permitAll().anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
+                .build();
 
 
     }

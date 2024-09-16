@@ -1,10 +1,15 @@
 package com.innovalife.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements UserDetails {
     @Id
     @Column(name = "cedula", nullable = false, length = 10)
     private String cedula;
@@ -20,6 +25,9 @@ public class Usuario {
 
     @Column(name = "email", length = 100)
     private String email;
+
+    @Column(name = "contraseña")
+    private String password;
 
     @Column(name = "tipo_usuario")
     private Integer tipoUsuario;
@@ -66,6 +74,24 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getTipoUsuario() {
