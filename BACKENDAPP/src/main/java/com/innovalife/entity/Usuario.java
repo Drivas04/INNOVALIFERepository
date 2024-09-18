@@ -1,7 +1,12 @@
 package com.innovalife.entity;
 
+import com.innovalife.utils.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -9,6 +14,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuario")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario implements UserDetails {
     @Id
     @Column(name = "cedula", nullable = false, length = 10)
@@ -30,7 +38,7 @@ public class Usuario implements UserDetails {
     private String password;
 
     @Column(name = "tipo_usuario")
-    private Integer tipoUsuario;
+    private Role tipoUsuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NIT_entidad")
@@ -78,7 +86,27 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(getTipoUsuario().name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public String getPassword() {
@@ -94,11 +122,11 @@ public class Usuario implements UserDetails {
         this.password = password;
     }
 
-    public Integer getTipoUsuario() {
+    public Role getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(Integer tipoUsuario) {
+    public void setTipoUsuario(Role tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 

@@ -2,6 +2,7 @@ package com.innovalife.oauth2;
 
 import com.innovalife.entity.Usuario;
 import com.innovalife.service.UsuarioService;
+import com.innovalife.utils.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,8 +24,8 @@ public class CustomOAuth2SuccesHandler extends SimpleUrlAuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         OAuth2User principal = (OAuth2User) authentication.getPrincipal();
 
-        String email = principal.getAttribute("email");
-        Usuario usuario = usuarioService.findByEmail(email);
+        String email = principal.getAttribute("cedula");
+        Usuario usuario = usuarioService.findById(email);
 
         if(usuario == null) {
             usuario = new Usuario();
@@ -32,7 +33,7 @@ public class CustomOAuth2SuccesHandler extends SimpleUrlAuthenticationSuccessHan
             usuario.setNombres(principal.getAttribute("nombres"));
             usuario.setApellidos(principal.getAttribute("apellidos"));
             usuario.setTelefono(principal.getAttribute("telefono"));
-            usuario.setTipoUsuario(0);
+            usuario.setTipoUsuario(Role.USER);
             usuarioService.save(usuario);
         }
 

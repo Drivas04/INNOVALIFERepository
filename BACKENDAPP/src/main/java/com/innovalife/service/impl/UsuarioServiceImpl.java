@@ -20,8 +20,9 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, String> impl
 		return usuarioRepository;
 	}
 
+
 	@Override
-	public Usuario findByEmail(String email) {
+	public Usuario findById(String cedula) {
 		return null;
 	}
 }
