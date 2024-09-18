@@ -38,7 +38,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return usuarioService::findById;
+        return username -> usuarioService.findById(username);
 
     }
 
