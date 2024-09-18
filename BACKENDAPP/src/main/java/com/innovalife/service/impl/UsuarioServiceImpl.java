@@ -19,4 +19,9 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, String> impl
 	public CrudRepository<Usuario, String> getDao() {
 		return usuarioRepository;
 	}
+
+	@Override
+	public Usuario findByEmail(String email) {
+		return null;
+	}
 }
