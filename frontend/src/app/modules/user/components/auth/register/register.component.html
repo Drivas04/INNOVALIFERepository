@@ -2,23 +2,15 @@
 
 <div class="bg-main flex flex-col h-[90vh]">
     <div class="items-center justify-center mt-5 font-extrabold text-5xl">
-        <h1 class="text-center ">Inicia Sesion</h1>
+        <h1 class="text-center ">Registrate</h1>
     </div>
     <div class="flex flex-col items-center text-4xl mt-7">      
-        <div class="flex flex-col ">
-            <div class="bg-butons justify-center m-2 rounded-lg">
-                <button class="font-extralight p-2 text-center text-2xl ">Acceder con tu cuenta de Google</button>
-            </div>
-        </div>
         <div class="mt-6 ">
-            <p class="text-center text-lg">Inicia sesion con tus credenciales</p>
-            <form [formGroup]="formLogin" (onSubmit)="formBuilder()"  class="mt-2 ">
+            <p class="text-center text-lg">Rellena el siguiente formulario de registro</p>
+            <form class="mt-2 ">
                <div class="flex flex-col justify-center"> 
                 <input class="font-extralight text-center w-full text-xl p-2" type="email" placeholder="Ingresa tu cedula">
                 <input class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
-                <div> 
-                    <span class="text-center text-lg items-center justify-center">No tienes cuenta? <a routerLink="/auth/register">Registrate</a></span>
-                </div>
                 <button type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2">Continuar</button>
                 
               </div>
