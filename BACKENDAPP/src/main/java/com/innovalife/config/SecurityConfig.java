@@ -18,13 +18,12 @@ public class SecurityConfig {
     private AuthenticationProvider authenticationProvider;
     private JWTAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean
+
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(c->c.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**")
-                .permitAll().anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/registrate")
+                .permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(sessionManager -> sessionManager
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
