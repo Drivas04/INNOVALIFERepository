@@ -1,4 +1,4 @@
-package com.innovalife.service;
+package com.innovalife.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JWTService {
+public class JwtService {
 
     private static String SECRET_KEY = "79dfd43d0b722de0591dfe787ccde3000f2a60e6cdbbcc2484b1a4be19592821";
 
@@ -23,10 +23,10 @@ public class JWTService {
         return getToken(new HashMap<>(), usuario);
     }
 
-    private String getToken(Map<String,Object> extraClaim, UserDetails usuario) {
+    private String getToken(Map<String,Object> extraClaims, UserDetails usuario) {
         return Jwts
                 .builder()
-                .setClaims(extraClaim)
+                .setClaims(extraClaims)
                 .setSubject(usuario.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
