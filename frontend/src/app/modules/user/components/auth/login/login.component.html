@@ -16,10 +16,10 @@
                <div class="flex flex-col justify-center"> 
                 <input class="font-extralight text-center w-full text-xl p-2" formControlName="cedula" type="text" placeholder="Ingresa tu cedula" [ngClass]="{'is-invalid' : hasErrors('cedula', 'required') || hasErrors('cedula', 'minlength')}">
                 @if (hasErrors('cedula', 'required')) {
-                    <span class="text-lg text-center">La cedula es <strong>Obligatoria</strong></span>
+                    <span class="text-sm text-center">La cedula es <strong>Obligatoria</strong></span>
                 }
                 @if (hasErrors('cedula', 'minlength')) {
-                    <span class="text-lg text-center">La cedula debe tener 10 caracteres</span>
+                    <span class="text-sm text-center">La cedula debe tener 7 caracteres como minimo</span>
                 } 
                 <input formControlName="contraseña" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
 

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   fb = inject(FormBuilder);
 
   form: FormGroup = this.fb.group({
-    cedula: ['', [Validators.required, Validators.minLength(10)]],
+    cedula: ['', [Validators.required, Validators.minLength(8)]],
     contraseña: ['', Validators.required]
   })
 
