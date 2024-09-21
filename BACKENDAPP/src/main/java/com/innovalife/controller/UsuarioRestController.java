@@ -3,6 +3,7 @@ package com.innovalife.controller;
 import java.util.List;
 
 import com.innovalife.entity.Usuario;
+import com.innovalife.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,35 +26,35 @@ import com.innovalife.utils.ResourceNotFoundException;
 public class UsuarioRestController {
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private UsuarioRepository usuarioRepository;
 	
 	@GetMapping("/listaUsuarios")
 	public List<Usuario> getAll(){
-		return usuarioService.getAll();
+		return usuarioRepository.findAll();
 	}
 	
 	@PostMapping(value="/guardarUsuario")
 	public ResponseEntity<Usuario> save(@RequestBody Usuario usuario){
-		Usuario usu = usuarioService.save(usuario);
+		Usuario usu = usuarioRepository.save(usuario);
 		return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 	}
 	
 	@PutMapping("/editar/{cedula}")
 	public ResponseEntity<Usuario> update(@PathVariable String cedula, @RequestBody Usuario nuevoUsuario){
-		Usuario usuarioExistente = usuarioService.get(cedula);
+		Usuario usuarioExistente = usuarioRepository.getOne(cedula);
 		
 		if(usuarioExistente == null) {
 			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
 		}
 		
-		nuevoUsuario.setCedula(cedula);
-		Usuario usu = usuarioService.save(nuevoUsuario);
+		nuevoUsuario.setUsername(cedula);
+		Usuario usu = usuarioRepository.save(nuevoUsuario);
 		return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 	}
 	
 	@GetMapping("/obtener/{cedula}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable String cedula) throws ResourceNotFoundException{
-		Usuario usuario = usuarioService.get(cedula);
+		Usuario usuario = usuarioRepository.getOne(cedula);
 		
 		if(usuario == null) {
 			new ResourceNotFoundException("ERROR 404: Usuario no encontrado");
@@ -63,9 +64,9 @@ public class UsuarioRestController {
 	
 	@DeleteMapping("/eliminar/{cedula}")
 	public ResponseEntity<Usuario> delete(@PathVariable String cedula){
-		Usuario usuario = usuarioService.get(cedula);
+		Usuario usuario = usuarioRepository.getOne(cedula);
 		if(usuario != null) {
-			usuarioService.delete(cedula);
+			usuarioRepository.delete(usuario);
 		}
 		else {
 			return new ResponseEntity<Usuario>(usuario, HttpStatus.INTERNAL_SERVER_ERROR);

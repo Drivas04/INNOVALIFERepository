@@ -1,9 +1,16 @@
 package com.innovalife.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "cita")
 public class Cita {
@@ -19,73 +26,5 @@ public class Cita {
 
     @Column(name = "estado", length = 50)
     private String estado;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cedula_usuario")
-    private Usuario cedulaUsuario;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_servicio")
-    private Servicio idServicio;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cedula_persona_encargada")
-    private Personal cedulaPersonaEncargada;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
-    public LocalDate getFechaCita() {
-        return fechaCita;
-    }
-
-    public void setFechaCita(LocalDate fechaCita) {
-        this.fechaCita = fechaCita;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Usuario getCedulaUsuario() {
-        return cedulaUsuario;
-    }
-
-    public void setCedulaUsuario(Usuario cedulaUsuario) {
-        this.cedulaUsuario = cedulaUsuario;
-    }
-
-    public Servicio getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(Servicio idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public Personal getCedulaPersonaEncargada() {
-        return cedulaPersonaEncargada;
-    }
-
-    public void setCedulaPersonaEncargada(Personal cedulaPersonaEncargada) {
-        this.cedulaPersonaEncargada = cedulaPersonaEncargada;
-    }
 
 }

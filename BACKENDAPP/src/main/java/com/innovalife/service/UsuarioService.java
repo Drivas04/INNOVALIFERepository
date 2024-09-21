@@ -8,6 +8,6 @@ import com.innovalife.utils.GenericServiceAPI;
 @Service
 public interface UsuarioService extends GenericServiceAPI<Usuario, String>{
 
-    public Usuario findById(String cedula);
+
 
 }
