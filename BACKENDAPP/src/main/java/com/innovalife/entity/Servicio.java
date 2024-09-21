@@ -1,7 +1,11 @@
 package com.innovalife.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "servicio")
 public class Servicio {
@@ -19,37 +23,5 @@ public class Servicio {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NIT_entidad")
     private Entidad nitEntidad;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Entidad getNitEntidad() {
-        return nitEntidad;
-    }
-
-    public void setNitEntidad(Entidad nitEntidad) {
-        this.nitEntidad = nitEntidad;
-    }
 
 }

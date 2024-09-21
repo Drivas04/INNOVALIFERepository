@@ -1,5 +1,6 @@
 package com.innovalife.config;
 
+import com.innovalife.repository.UsuarioRepository;
 import com.innovalife.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioRepository usuarioRepository;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -39,7 +40,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> usuarioService.findByUsername(username)
+        return username -> usuarioRepository.findByUsername(username)
                 .orElseThrow(()->new UsernameNotFoundException("User not found"));
 
     }

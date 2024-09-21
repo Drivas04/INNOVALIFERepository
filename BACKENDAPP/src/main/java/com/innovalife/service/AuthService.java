@@ -5,27 +5,28 @@ import com.innovalife.entity.LoginRequest;
 import com.innovalife.entity.RegisterRequest;
 import com.innovalife.entity.Usuario;
 import com.innovalife.repository.UsuarioRepository;
-import com.innovalife.service.impl.UsuarioServiceImpl;
 import com.innovalife.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import static java.lang.String.valueOf;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
-    private UsuarioService usuarioService;
-    private JWTService jwtService;
-    private AuthenticationManager authenticationManager;
+    private final UsuarioRepository usuarioRepository;
+    private final JWTService jwtService;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthResponse login(LoginRequest loginRequest){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getCedula(), loginRequest.getPassword()));
-        UserDetails usuario = usuarioService.findByUsername(loginRequest.getCedula()).orElseThrow();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        UserDetails usuario = usuarioRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
         String token = jwtService.getToken(usuario);
         return AuthResponse.builder()
                 .token(token)
@@ -34,16 +35,16 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest registerRequest){
         Usuario usuario = Usuario.builder()
-                .cedula(registerRequest.getCedula())
-                .nombres(registerRequest.getNombres())
-                .apellidos(registerRequest.getApellidos())
-                .telefono(registerRequest.getTelefono())
+                .username(registerRequest.getUsername())
+                .names(registerRequest.getNames())
+                .lastNames(registerRequest.getLastnames())
+                .phone(registerRequest.getPhone())
                 .email(registerRequest.getEmail())
-                .password(registerRequest.getPassword())
-                .tipoUsuario(Role.USER)
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .role(Role.USER)
                 .build();
 
-        usuarioService.save(usuario);
+        usuarioRepository.save(usuario);
         return AuthResponse.builder()
                 .token(jwtService.getToken(usuario))
                 .build();

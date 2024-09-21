@@ -22,8 +22,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
-    private JWTService jwtService;
-    private UserDetailsService userDetailsService;
+    private final JWTService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -35,9 +35,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        filterChain.doFilter(request, response);
         username = jwtService.getUsernameFromToken(token);
 
-        if (username == null && SecurityContextHolder.getContext().getAuthentication()==null){
+        if (username != null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if(jwtService.isTokenValid(token, userDetails)){
@@ -49,12 +50,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        filterChain.doFilter(request, response);
+
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(StringUtils.hasText(authHeader) && authHeader.startsWith("bearer ")){
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
             return authHeader.substring(7);
         }
         return null;

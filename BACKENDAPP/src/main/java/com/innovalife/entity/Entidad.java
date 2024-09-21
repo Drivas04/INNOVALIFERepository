@@ -4,7 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "entidad")
 public class Entidad {
@@ -17,29 +21,5 @@ public class Entidad {
 
     @Column(name = "bloque_atencion", length = 50)
     private String bloqueAtencion;
-
-    public String getNit() {
-        return nit;
-    }
-
-    public void setNit(String nit) {
-        this.nit = nit;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getBloqueAtencion() {
-        return bloqueAtencion;
-    }
-
-    public void setBloqueAtencion(String bloqueAtencion) {
-        this.bloqueAtencion = bloqueAtencion;
-    }
 
 }
