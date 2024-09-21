@@ -12,14 +12,22 @@
         </div>
         <div class="mt-6 ">
             <p class="text-center text-lg">Inicia sesion con tus credenciales</p>
-            <form [formGroup]="formLogin" (onSubmit)="formBuilder()"  class="mt-2 ">
+            <form [formGroup]='form' (ngSubmit)="formSubmit()" class="mt-2 ">
                <div class="flex flex-col justify-center"> 
-                <input class="font-extralight text-center w-full text-xl p-2" type="email" placeholder="Ingresa tu cedula">
-                <input class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
-                <div> 
-                    <span class="text-center text-lg items-center justify-center">No tienes cuenta? <a routerLink="/auth/register">Registrate</a></span>
+                <input class="font-extralight text-center w-full text-xl p-2" formControlName="cedula" type="text" placeholder="Ingresa tu cedula" [ngClass]="{'is-invalid' : hasErrors('cedula', 'required') || hasErrors('cedula', 'minlength')}">
+                @if (hasErrors('cedula', 'required')) {
+                    <span class="text-sm text-center">La cedula es <strong>Obligatoria</strong></span>
+                }
+                @if (hasErrors('cedula', 'minlength')) {
+                    <span class="text-sm text-center">La cedula debe tener 7 caracteres como minimo</span>
+                } 
+                <input formControlName="contraseña" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
+
+            
+                <div class="text-center"> 
+                    <span class="text-center text-lg items-center justify-center">No tienes cuenta? <a class="font-bold" routerLink="/auth/register">Registrate</a></span>
                 </div>
-                <button type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2">Continuar</button>
+                <button [disabled]="form.invalid" type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2">Continuar</button>
                 
               </div>
             </form>
