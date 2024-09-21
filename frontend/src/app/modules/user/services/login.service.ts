@@ -13,7 +13,7 @@ export class LoginService {
 
   //generar token
   public generateToken(loginData:any){
-    return this.http.post(`https://reqres.in/api/login`, loginData)
+    
   }
 
   //iniciar sesion y establecer el token en localStorage

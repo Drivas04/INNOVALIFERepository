@@ -5,6 +5,8 @@ import { HomeheaderComponent } from '../../../../../shared/components/homeheader
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../../core/models/user.interface';
 import { CommonModule, NgClass } from '@angular/common';
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,21 +18,34 @@ import { CommonModule, NgClass } from '@angular/common';
 export class RegisterComponent implements OnInit{
   
   fb= inject(FormBuilder)
+  userS = inject(UserService)
+  router = inject(Router)
+
   
   formRegistro: FormGroup = this.fb.group({
-    cedula: ['',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-    nombres: ['', [Validators.required]],
-    apellidos: ['', [Validators.required]],
-    telefono: ['', [Validators.required]],
+    username: ['',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+    names: ['', [Validators.required]],
+    lastnames: ['', [Validators.required]],
+    phone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    contraseña: ['', Validators.required]
+    password: ['', Validators.required]
   })
+  
+  
+
   
   ngOnInit(): void {
   }
 
-  registerSubmit(){
+  
 
+  registerSubmit(){
     console.log(this.formRegistro.value)
   }
+
+  registerUser(){
+    
+  }
+
+  
 }

@@ -9,13 +9,13 @@
             <p class="text-center text-lg">Rellena el siguiente formulario de registro</p>
             <form class="mt-2" [formGroup]="formRegistro" (ngSubmit)="registerSubmit()">
                <div class="flex flex-col justify-center"> 
-                <input formControlName="cedula" class="font-extralight text-center w-full text-xl p-2" type="email" placeholder="Ingresa tu cedula">
-                <input formControlName="nombres" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tus nombres">
-                <input formControlName="apellidos" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tus apellidos">
-                <input formControlName="telefono" class="font-extralight text-center w-full text-xl p-2 mt-3" type="number" placeholder="Ingresa tu numero de telefono">
+                <input formControlName="username" class="font-extralight text-center w-full text-xl p-2" type="email" placeholder="Ingresa tu cedula">
+                <input formControlName="names" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tus nombres">
+                <input formControlName="lastnames" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tus apellidos">
+                <input formControlName="phone" class="font-extralight text-center w-full text-xl p-2 mt-3" type="number" placeholder="Ingresa tu numero de telefono">
                 <input formControlName="email" class="font-extralight text-center w-full text-xl p-2 mt-3" type="email" placeholder="Ingresa tu email">
-                <input formControlName="contraseña" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
-                <button type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2">Registrarse</button>               
+                <input formControlName="password" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
+                <button type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2" (click)="registerUser()">Registrarse</button>               
               </div>
             </form>
         </div>
