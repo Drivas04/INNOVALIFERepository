@@ -8,6 +8,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit{
 
   
   formRegistro: FormGroup = this.fb.group({
-    username: ['',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+    username: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
     names: ['', [Validators.required]],
     lastnames: ['', [Validators.required]],
     phone: ['', [Validators.required]],
@@ -37,14 +38,33 @@ export class RegisterComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  
+  registerUser(){
+   if(this.formRegistro.invalid) return;
 
-  registerSubmit(){
-    console.log(this.formRegistro.value)
+   const objeto:User = {
+    username: this.formRegistro.value.username,
+    names: this.formRegistro.value.names,
+    lastnames: this.formRegistro.value.lastnames,
+    phone: this.formRegistro.value.phone,
+    email: this.formRegistro.value.email,
+    password: this.formRegistro.value.password
+   }
+
+   this.userS.registerUser(objeto).subscribe({
+    next: (data) => {      
+      console.log(data)
+      this.router.navigate(['/auth'])   
+    },
+    error: (err) =>{
+      console.log(err)
+    }
+   })
+
+
   }
 
-  registerUser(){
-    
+  hasErrors(field: string, typeError: string) {
+    return this.formRegistro.get(field)?.hasError(typeError) && this.formRegistro.get(field)?.touched;
   }
 
   

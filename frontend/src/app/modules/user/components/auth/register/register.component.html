@@ -7,14 +7,41 @@
     <div class="flex flex-col items-center text-4xl mt-7">      
         <div class="mt-6 ">
             <p class="text-center text-lg">Rellena el siguiente formulario de registro</p>
-            <form class="mt-2" [formGroup]="formRegistro" (ngSubmit)="registerSubmit()">
+            <form class="mt-2" [formGroup]="formRegistro" >
                <div class="flex flex-col justify-center"> 
                 <input formControlName="username" class="font-extralight text-center w-full text-xl p-2" type="email" placeholder="Ingresa tu cedula">
+                @if (hasErrors('username', 'required')) {
+                    <span class="text-sm text-center">La cedula es <strong>Obligatoria</strong></span>
+                }
+                @if (hasErrors('username', 'minlength')) {
+                    <span class="text-sm text-center">La cedula debe tener 8 caracteres como minimo</span>
+                }
+                @if (hasErrors('username', 'maxlength')) {
+                    <span class="text-sm text-center">La cedula debe tener 10 caracteres como maximo</span>
+                }
                 <input formControlName="names" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tus nombres">
+                @if (hasErrors('names', 'required')) {
+                    <span class="text-sm text-center">Los nombres son <strong>Obligatorios</strong></span>
+                }
                 <input formControlName="lastnames" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tus apellidos">
+                @if (hasErrors('lastnames', 'required')) {
+                    <span class="text-sm text-center">Los apellidos son <strong>Obligatorios</strong></span>
+                }
                 <input formControlName="phone" class="font-extralight text-center w-full text-xl p-2 mt-3" type="number" placeholder="Ingresa tu numero de telefono">
+                @if (hasErrors('phone', 'required')) {
+                    <span class="text-sm text-center">El numero es <strong>Obligatorio</strong></span>
+                }
                 <input formControlName="email" class="font-extralight text-center w-full text-xl p-2 mt-3" type="email" placeholder="Ingresa tu email">
+                @if (hasErrors('email', 'required')) {
+                    <span class="text-sm text-center">El email es <strong>Obligatorio</strong></span>
+                }
+                @if (hasErrors('email', 'email')) {
+                    <span class="text-sm text-center">Falta el arroba</span>
+                }
                 <input formControlName="password" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
+                @if (hasErrors('password', 'required')) {
+                    <span class="text-sm text-center">La contraseña es <strong>Obligatoria</strong></span>
+                }
                 <button type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2" (click)="registerUser()">Registrarse</button>               
               </div>
             </form>
