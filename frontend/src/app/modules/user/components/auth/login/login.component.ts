@@ -6,6 +6,8 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Login } from '../../../../../core/models/login.interface';
 import { LoginService } from '../../../services/login.service';
+import { ReturnStatement } from '@angular/compiler';
+import { ResponseAcceso } from '../../../../../core/models/responseAccess.interface';
 
 
 
@@ -48,19 +50,21 @@ export class LoginComponent implements OnInit {
       username: this.formLogin.value.username,
       password: this.formLogin.value.password
     }
+
     
     this.loginS.loginUser(objeto).subscribe({
       next: (data: any) =>{
-       const token = data.token
-       const user = data.user
-       this.loginS.setToken(token)
-       this.loginS.setUser(user)
-       console.log(data)
-       this.router.navigate(['/user/userhome'])
-      },
-      error: (err) => {
-        alert('Credenciales incorrectas')
+          console.log(data)
+          const token = data.token
+          this.loginS.setToken(token)
+      },     
+      error: (err) => {     
         console.log(err)
+      },
+      complete: () => {
+        console.info("Login completo")        
+        this.router.navigate(['/user/userhome'])
+
       }
     })
     
