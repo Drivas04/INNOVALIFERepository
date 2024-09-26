@@ -5,6 +5,7 @@ import { User } from '../../../core/models/user.interface';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Login } from '../../../core/models/login.interface';
+import { ResponseAcceso } from '../../../core/models/responseAccess.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -53,12 +54,12 @@ export class LoginService {
   public getToken(){
     return localStorage.getItem(this.tokenKey)
   }
-  //dar usuario al localStorage
+  /*dar usuario al localStorage
   public setUser(user: User){
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  //dar el usuario
+  dar el usuario
   public getUser(){ 
   let userStr = localStorage.getItem('user')
   
@@ -69,7 +70,7 @@ export class LoginService {
     this.logOut
     return null
    }
-  }
+  }*/
 
   
 

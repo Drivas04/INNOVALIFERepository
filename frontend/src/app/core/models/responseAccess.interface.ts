@@ -1,3 +1,4 @@
 export interface ResponseAcceso{
-    token:string
+    isSucces:boolean,
+    tokem: string
 }
