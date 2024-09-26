@@ -1,4 +1,4 @@
-package com.innovalife.entity;
+package com.innovalife.cita;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
