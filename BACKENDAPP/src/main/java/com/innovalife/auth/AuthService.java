@@ -5,8 +5,10 @@ import com.innovalife.usuario.Usuario;
 import com.innovalife.usuario.UserRepository;
 import com.innovalife.jwt.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +27,13 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
+        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("contraseña incorrecta");
+        }
         String token=jwtService.getToken(user);
         return AuthResponse.builder()
+                .mensaje("Bienvenido! "+user.getUsername())
             .token(token)
             .build();
 
