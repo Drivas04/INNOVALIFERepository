@@ -5,6 +5,10 @@ import { HomeheaderComponent } from '../../../../../shared/components/homeheader
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../../core/models/user.interface';
 import { CommonModule, NgClass } from '@angular/common';
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
+import { SnackbarService } from '../../../services/snackbar.service';
+
 
 @Component({
   selector: 'app-register',
@@ -16,21 +20,55 @@ import { CommonModule, NgClass } from '@angular/common';
 export class RegisterComponent implements OnInit{
   
   fb= inject(FormBuilder)
+  userS = inject(UserService)
+  router = inject(Router)
+  _snackBar = inject(SnackbarService)
+
   
   formRegistro: FormGroup = this.fb.group({
-    cedula: ['',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-    nombres: ['', [Validators.required]],
-    apellidos: ['', [Validators.required]],
-    telefono: ['', [Validators.required]],
+    username: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
+    names: ['', [Validators.required]],
+    lastnames: ['', [Validators.required]],
+    phone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    contraseña: ['', Validators.required]
+    password: ['', Validators.required]
   })
+  
+  
+
   
   ngOnInit(): void {
   }
 
-  registerSubmit(){
+  registerUser(){
+   if(this.formRegistro.invalid) return;
 
-    console.log(this.formRegistro.value)
+   const objeto:User = {
+    username: this.formRegistro.value.username,
+    names: this.formRegistro.value.names,
+    lastnames: this.formRegistro.value.lastnames,
+    phone: this.formRegistro.value.phone,
+    email: this.formRegistro.value.email,
+    password: this.formRegistro.value.password
+   }
+
+   this.userS.registerUser(objeto).subscribe({
+    next: (data) => {      
+      console.log(data)  
+    },
+    error: (err) =>{
+      console.log(err)
+    },
+    complete: () => {
+      this._snackBar.showSnackBar("Usuario registrado con exito");
+      this.router.navigate(['/auth'])
+    }
+   })
+ 
+
   }
+
+  hasErrors(field: string, typeError: string) {
+    return this.formRegistro.get(field)?.hasError(typeError) && this.formRegistro.get(field)?.touched;
+  } 
 }

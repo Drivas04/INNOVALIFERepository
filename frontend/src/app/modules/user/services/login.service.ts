@@ -1,25 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../../../core/models/user.interface';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { Login } from '../../../core/models/login.interface';
+import { ResponseAcceso } from '../../../core/models/responseAccess.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  getUserInfo(): any {
+    throw new Error('Method not implemented.');
+  }
 
   private tokenKey = 'jwt'
+  private apiUrl = `${environment.apiUrl}`
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  //generar token
-  public generateToken(loginData:any){
-    return this.http.post(`https://reqres.in/api/login`, loginData)
+  //iniciar sesion y establecer el token en localStorage
+ 
+  public loginUser(user: Login): Observable<Login>{
+    return this.http.post<Login>(`${this.apiUrl}/auth/login`, user)
   }
 
-  //iniciar sesion y establecer el token en localStorage
-
-  public loginUser(token:any){
+  public setToken(token: string){
     localStorage.setItem(`${this.tokenKey}`, token)
+    return true
   }
 
   //validar que el usuario este conectado
@@ -32,17 +41,11 @@ export class LoginService {
     }
   }
 
-  //pasarle el usuario logeado
-  public setUser(user:any){
-    localStorage.setItem('user',JSON.stringify(user))
-  }
-
   //cerrar sesion y eliminar token
 
 
-  public logOut(): void{
+  public logOut(){
     localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem('user')
     this.router.navigate(['/auth'])
     
   }
@@ -51,8 +54,12 @@ export class LoginService {
   public getToken(){
     return localStorage.getItem(this.tokenKey)
   }
+  /*dar usuario al localStorage
+  public setUser(user: User){
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 
-  //dar el usuario
+  dar el usuario
   public getUser(){ 
   let userStr = localStorage.getItem('user')
   
@@ -63,7 +70,7 @@ export class LoginService {
     this.logOut
     return null
    }
-  }
+  }*/
 
   
 

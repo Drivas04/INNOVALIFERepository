@@ -1,18 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { User } from '../../../core/models/user.interface';
+import { ResponseAcceso } from '../../../core/models/responseAccess.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private http = inject(HttpClient)
+http = inject(HttpClient)
+router = inject(Router)
 
-  constructor(){}
+private apiUrl = `${environment.apiUrl}`
+//private urlRegister = `${environment.auth.registerUrl}`
 
-  public NewUser(user:any){
-    
-  }
-
+registerUser(user: User): Observable<User>{
+  return this.http.post<User>(`${this.apiUrl}/auth/registrate`, user)
+   
+ }
 
 }

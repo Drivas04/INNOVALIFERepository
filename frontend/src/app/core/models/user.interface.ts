@@ -1,8 +1,9 @@
 export interface User{
-    cedula: string;
-    nombres: string;
-    apellidos: string;
-    telefono: string;
+    
+    username: string;
+    names: string;
+    lastnames: string;
+    phone: string;
     email:string;
-    contraseña: string;
+    password: string;
 }
