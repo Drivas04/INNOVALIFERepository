@@ -26,7 +26,6 @@ public class ApplicationConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider= new DaoAuthenticationProvider();

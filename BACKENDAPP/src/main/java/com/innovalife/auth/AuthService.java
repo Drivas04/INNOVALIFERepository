@@ -4,6 +4,7 @@ import com.innovalife.usuario.Role;
 import com.innovalife.usuario.Usuario;
 import com.innovalife.usuario.UserRepository;
 import com.innovalife.jwt.JwtService;
+import com.innovalife.utils.ResourceNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,10 +28,12 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow(()->new UsernameNotFoundException("Usuario no encontrado"));
+
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("contraseña incorrecta");
         }
+
         String token=jwtService.getToken(user);
         return AuthResponse.builder()
                 .mensaje("Bienvenido! "+user.getUsername())
