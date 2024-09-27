@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JpaBuddyIdeaProjectConfig">
-    <option name="reLastEntityCreationPackage" value="BACKENDAPP/src/main/java/com/innovalife/entity" />
-    <option name="reverseEngineeringLastDbConnectionId" value="8bd0b729-5ec8-45f7-93e8-451e9caca1d0" />
+    <option name="reLastEntityCreationPackage" value="BACKENDAPP/src/main/java/com/innovalife/usuario" />
+    <option name="reverseEngineeringLastDbConnectionId" value="31e565a7-bca4-42b5-b3ca-3522e8d3535f__dbsigesme" />
   </component>
 </project>

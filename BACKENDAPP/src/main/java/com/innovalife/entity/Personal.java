@@ -1,5 +1,6 @@
 package com.innovalife.entity;
 
+import com.innovalife.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "personal")
 public class Personal {
     @Id
     @Column(name = "cedula", nullable = false, length = 20)
     private String cedula;
+
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cedula", nullable = false)
+    private Usuario usuario;
 
     @Column(name = "nombres", length = 100)
     private String nombres;
