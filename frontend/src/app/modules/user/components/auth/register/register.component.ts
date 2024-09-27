@@ -7,6 +7,7 @@ import { User } from '../../../../../core/models/user.interface';
 import { CommonModule, NgClass } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class RegisterComponent implements OnInit{
   fb= inject(FormBuilder)
   userS = inject(UserService)
   router = inject(Router)
+  _snackBar = inject(SnackbarService)
 
   
   formRegistro: FormGroup = this.fb.group({
@@ -52,20 +54,21 @@ export class RegisterComponent implements OnInit{
 
    this.userS.registerUser(objeto).subscribe({
     next: (data) => {      
-      console.log(data)
-      this.router.navigate(['/auth'])   
+      console.log(data)  
     },
     error: (err) =>{
       console.log(err)
+    },
+    complete: () => {
+      this._snackBar.showSnackBar("Usuario registrado con exito");
+      this.router.navigate(['/auth'])
     }
    })
-
+ 
 
   }
 
   hasErrors(field: string, typeError: string) {
     return this.formRegistro.get(field)?.hasError(typeError) && this.formRegistro.get(field)?.touched;
-  }
-
-  
+  } 
 }
