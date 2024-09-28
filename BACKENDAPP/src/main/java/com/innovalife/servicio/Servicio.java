@@ -1,5 +1,6 @@
-package com.innovalife.entity;
+package com.innovalife.servicio;
 
+import com.innovalife.entity.Entidad;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Entity
 public class Servicio {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nombre", length = 100)

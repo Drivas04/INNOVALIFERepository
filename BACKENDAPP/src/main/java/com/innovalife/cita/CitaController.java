@@ -1,9 +1,11 @@
 package com.innovalife.cita;
 
 import com.innovalife.utils.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
 
@@ -12,12 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/citas")
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
+@PreAuthorize("isAuthenticated()")
 public class CitaController {
 
     @Autowired
     private CitaRepository citaRepository;
 
-    @GetMapping("listaCitas")
+    @GetMapping(value="listaCitas")
     public List<Cita> getAll(){
         return citaRepository.findAll();
     }
@@ -44,8 +48,14 @@ public class CitaController {
         if(!citaRepository.existsById(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Cita citaExistente = citaRepository.getReferenceById(id);
-        return ResponseEntity.ok().build();
+        cita.setId(id);
+        cita.setEstado(cita.getEstado());
+        cita.setFechaCita(cita.getFechaCita());
+        cita.setDescripcion(cita.getDescripcion());
+
+        Cita nuevaCita = citaRepository.save(cita);
+
+        return new ResponseEntity<>(nuevaCita, HttpStatus.OK);
 
     }
 
