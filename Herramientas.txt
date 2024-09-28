@@ -4,8 +4,7 @@ FRONTEND
 
 1)Angular version 18
 2)Tailwind ultima version.
-3)PrimeNg
-4)Toastr
+3)Angular material (Para componentes epecificos)
 
 BACKEND
 
