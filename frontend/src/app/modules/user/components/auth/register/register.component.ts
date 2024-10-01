@@ -8,6 +8,8 @@ import { CommonModule, NgClass } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoginService } from '../../../services/login.service';
 
 
 @Component({
@@ -20,7 +22,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
 export class RegisterComponent implements OnInit{
   
   fb= inject(FormBuilder)
-  userS = inject(UserService)
+  userS = inject(LoginService)
   router = inject(Router)
   _snackBar = inject(SnackbarService)
 
@@ -53,14 +55,18 @@ export class RegisterComponent implements OnInit{
    }
 
    this.userS.registerUser(objeto).subscribe({
-    next: (data) => {      
-      console.log(data)  
+    next: (data: any) => {    
+      console.log(data)      
     },
-    error: (err) =>{
-      console.log(err)
+    error: (error) =>{
+      if(error.status === 409){
+        console.log('Error en el registro', error.error.mensaje)
+      }else{ 
+      console.log("Error", error)
+    }
     },
-    complete: () => {
-      this._snackBar.showSnackBar("Usuario registrado con exito");
+    complete: () =>{
+      this._snackBar.showSnackBar("Has sido registrado con exito")
       this.router.navigate(['/auth'])
     }
    })

@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule, NgClass,  } from '@angular/common';
 import { Login } from '../../../../../core/models/login.interface';
 import { LoginService } from '../../../services/login.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 
 
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   
   hide = signal(true);
   
+  snackBars= inject(SnackbarService)
   fb = inject(FormBuilder);
   loginS = inject(LoginService)
   router = inject(Router)
@@ -57,15 +59,15 @@ export class LoginComponent implements OnInit {
     
     this.loginS.loginUser(objeto).subscribe({
       next: (data: any) =>{
-          console.log(data)
-          const token = data.token
-          this.loginS.setToken(token)
+        const token = data.token
+        this.loginS.setToken(token)
+        console.log(data)
       },     
       error: (err) => {     
-        console.log(err)
+        console.log("Error", err)
       },
       complete: () => {
-        console.info("Login completo")        
+        this.snackBars.showSnackBar(`Bienvenido`, "OK")        
         this.router.navigate(['/user/userhome'])
 
       }

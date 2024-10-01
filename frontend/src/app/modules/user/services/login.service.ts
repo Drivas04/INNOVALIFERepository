@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.interface';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Login } from '../../../core/models/login.interface';
 import { ResponseAcceso } from '../../../core/models/responseAccess.interface';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,19 @@ export class LoginService {
   public loginUser(user: Login): Observable<Login>{
     return this.http.post<Login>(`${this.apiUrl}/auth/login`, user)
   }
+  
+  registerUser(user: User): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/auth/registrate`, user).pipe(
+      tap(
+        response => {
+          if(response.token) {
+            console.log('Registro exitoso', response.token)
+          }
+        }
+      )
+    )
+     
+   }
 
   public setToken(token: string){
     localStorage.setItem(`${this.tokenKey}`, token)

@@ -17,9 +17,6 @@ router = inject(Router)
 private apiUrl = `${environment.apiUrl}`
 //private urlRegister = `${environment.auth.registerUrl}`
 
-registerUser(user: User): Observable<User>{
-  return this.http.post<User>(`${this.apiUrl}/auth/registrate`, user)
-   
- }
+
 
 }
