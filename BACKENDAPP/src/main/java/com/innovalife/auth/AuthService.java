@@ -28,16 +28,18 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow(()->new UsernameNotFoundException("Usuario no encontrado"));
 
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException("Contraseña incorrecta");
+            throw new BadCredentialsException("contraseña incorrecta");
         }
 
         String token=jwtService.getToken(user);
-        return AuthResponse.builder().mensaje("Bienvenido! " + user.getUsername())
+        return AuthResponse.builder()
+                .mensaje("Bienvenido! "+user.getUsername())
             .token(token)
             .build();
+
     }
 
     public AuthResponse register(RegisterRequest request) {
@@ -53,11 +55,12 @@ public class AuthService {
         if(userRepository.existsById(user.getUsername())){
             return AuthResponse.builder().mensaje("ERROR: Usuario ya existente").build();
         }
-        else{
-            userRepository.save(user);
-            return AuthResponse.builder()
+        userRepository.save(user);
+
+        return AuthResponse.builder()
             .token(jwtService.getToken(user))
             .build();
-        }
+        
     }
+
 }

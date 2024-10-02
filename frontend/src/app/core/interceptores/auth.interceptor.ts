@@ -1,19 +1,24 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { LoginService } from '../../modules/user/services/login.service';
+import { catchError, Observable, throwError,  } from 'rxjs';
+import { SnackbarService } from '../../modules/user/services/snackbar.service';
 
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
+export const LoginErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const _loginService = inject(LoginService)
-  let authReq =  req
-  const token = _loginService.getToken()
-
-  if(token != null){
-    authReq = authReq.clone({
-      setHeaders: {Authorization:`Bearer ${token}`}
+  const _snackBar = inject(SnackbarService)
+  return next(req).pipe(
+    catchError(error => {
+      if (error.status === 401) {
+        _snackBar.showSnackBar('Credenciales incorrectas', 'OK');
+      } else if (error.status === 403) {
+        _snackBar.showSnackBar('Acceso denegado', 'OK');
+      } else {
+        console.log('Error en el login:', error.message);
+      }
+      return throwError(() => error);
     })
-  }
-  
-  return next(authReq)
+  );
 };
+

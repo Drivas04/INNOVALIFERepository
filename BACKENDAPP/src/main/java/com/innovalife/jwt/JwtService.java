@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -23,13 +25,15 @@ public class JwtService {
         return getToken(new HashMap<>(), usuario);
     }
 
-    private String getToken(Map<String,Object> extraClaims, UserDetails usuario) {
-        return Jwts
-                .builder()
+    private String getToken(Map<String, Object> extraClaims, UserDetails usuario) {
+        return Jwts.builder()
                 .setClaims(extraClaims)
+                .claim("roles", usuario.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                 .setSubject(usuario.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+ 1000L *60*24*7*30*12))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 7))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -48,25 +52,28 @@ public class JwtService {
         return getClaim(token, Claims::getSubject);
     }
 
-    private Claims getAllClaims(String token){
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    private Claims getAllClaims(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public <T> T getClaim(String token, Function<Claims, T> claimResolver){
+    public <T> T getClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = getAllClaims(token);
         return claimResolver.apply(claims);
     }
 
-    public Date getExpiration(String token){
+    public Date getExpiration(String token) {
         return getClaim(token, Claims::getExpiration);
     }
 
-    private boolean isTokenExpired(String token){
+    private boolean isTokenExpired(String token) {
         return getExpiration(token).before(new Date());
     }
 }
