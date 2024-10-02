@@ -55,6 +55,7 @@ public class AuthService {
         if(userRepository.existsById(user.getUsername())){
             return AuthResponse.builder().mensaje("ERROR: Usuario ya existente").build();
         }
+
         userRepository.save(user);
 
         return AuthResponse.builder()
