@@ -47,7 +47,6 @@ public class AuthService {
                 .httpStatus(HttpStatus.OK)
             .token(token)
             .build();
-
     }
 
     public AuthResponse register(RegisterRequest request) {
