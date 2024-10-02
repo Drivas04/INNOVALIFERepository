@@ -1,10 +1,10 @@
 package com.innovalife.auth;
 
 import com.innovalife.usuario.Role;
+import com.innovalife.usuario.Usuario;
 import com.innovalife.usuario.UserRepository;
 import com.innovalife.jwt.JwtService;
-import com.innovalife.usuario.Usuario;
-import org.springframework.http.HttpStatus;
+import com.innovalife.utils.ResourceNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,17 +34,9 @@ public class AuthService {
             throw new BadCredentialsException("contraseña incorrecta");
         }
 
-        if(userRepository.findByUsername(user.getUsername()).isEmpty()){
-            return AuthResponse.builder()
-                    .httpStatus(HttpStatus.NOT_FOUND)
-                    .mensaje("Usuario no encontrado")
-                    .build();
-        }
-
         String token=jwtService.getToken(user);
         return AuthResponse.builder()
                 .mensaje("Bienvenido! "+user.getUsername())
-                .httpStatus(HttpStatus.OK)
             .token(token)
             .build();
     }
@@ -52,26 +44,23 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
         Usuario user = Usuario.builder()
             .username(request.getUsername())
-            .password(passwordEncoder.encode(request.getPassword()))
+            .password(passwordEncoder.encode( request.getPassword()))
             .names(request.getNames())
-            .lastNames(request.last_names)
+            .lastNames(request.lastnames)
             .phone(request.getPhone()).email(request.getEmail())
             .role(Role.USER)
             .build();
 
-        if(userRepository.findByUsername(user.getUsername()).isPresent()){
-            return AuthResponse.builder()
-                    .httpStatus(HttpStatus.CONFLICT)
-                    .mensaje("ERROR: Usuario ya existente").build();
+        if(userRepository.existsById(user.getUsername())){
+            return AuthResponse.builder().mensaje("ERROR: Usuario ya existente").build();
         }
 
         userRepository.save(user);
+
         return AuthResponse.builder()
-                .mensaje("Usuario registrado con exito")
-                .httpStatus(HttpStatus.OK)
             .token(jwtService.getToken(user))
             .build();
+        
     }
-
 
 }
