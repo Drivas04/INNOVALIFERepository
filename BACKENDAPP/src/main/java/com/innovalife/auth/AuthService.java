@@ -33,7 +33,6 @@ public class AuthService {
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("contraseña incorrecta");
         }
-
         if(userRepository.findByUsername(user.getUsername()).isEmpty()){
             return AuthResponse.builder()
                     .httpStatus(HttpStatus.NOT_FOUND)
