@@ -6,8 +6,8 @@
                     SIGESME
                 </h1>
             </a>
-            <div class="flex items-center lg:order-2">                
-                <button   routerLink="/auth/login" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons  ">Iniciar Sesion</button>             
+            <div class="flex items-center lg:order-2">
+               <button *ngIf="!isLogged" routerLink="/auth/login" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Iniciar Sesion</button>                                       
             </div>         
         </div>
     </nav>

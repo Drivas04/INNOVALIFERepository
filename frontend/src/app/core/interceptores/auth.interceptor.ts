@@ -11,11 +11,11 @@ export const LoginErrorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError(error => {
       if (error.status === 401) {
-        _snackBar.showSnackBar('Credenciales incorrectas', 'OK');
+        _snackBar.showSnackBar('Acceso no valido', 'OK');
       } else if (error.status === 403) {
-        _snackBar.showSnackBar('Acceso denegado', 'OK');
+        _snackBar.showSnackBar('Credenciales incorrectas', 'OK');
       } else {
-        console.log('Error en el login:', error.message);
+        _snackBar.showSnackBar('Error inesperado', 'OK');
       }
       return throwError(() => error);
     })

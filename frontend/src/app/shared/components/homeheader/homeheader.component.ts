@@ -15,19 +15,16 @@ export class HomeheaderComponent  implements OnInit{
   
   loginS = inject(LoginService)
   router = inject(Router)
+isLogged: any;
   
-  isAuthenticated: boolean = false;
-  userInfo: any = null;
-
   ngOnInit(): void {
+      this.loginS.isLoggedIn
+    }
    
-  }
-  
-  
-  logout(): void {
-    this.loginS.logOut;
-    this.router.navigate(['/auth']);
-  }
 }
+  
+  
+  
+
 
 
