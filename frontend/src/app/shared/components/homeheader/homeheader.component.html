@@ -7,7 +7,8 @@
                 </h1>
             </a>
             <div class="flex items-center lg:order-2">
-               <button *ngIf="!isLogged" routerLink="/auth/login" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Iniciar Sesion</button>                                       
+               <button *ngIf="!isloggedIn" routerLink="/auth/login" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Iniciar Sesion</button>    
+               <button *ngIf="isloggedIn" (click)="logOut()" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Cerrar sesion</button>                                   
             </div>         
         </div>
     </nav>

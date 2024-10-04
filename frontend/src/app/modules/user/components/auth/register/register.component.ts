@@ -8,7 +8,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { LoginService } from '../../../services/login.service';
 
 
@@ -59,11 +59,11 @@ export class RegisterComponent implements OnInit{
       console.log(data)      
     },
     error: (error) =>{
-      if(error.status === 409){
+      if(error.status === HttpStatusCode.Conflict){
         console.log('Error en el registro', error.error.mensaje)
       }else{ 
       console.log("Error", error)
-    }
+    } 
     },
     complete: () =>{
       this._snackBar.showSnackBar("Has sido registrado con exito")

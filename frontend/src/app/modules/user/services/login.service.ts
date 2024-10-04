@@ -2,24 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.interface';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Login } from '../../../core/models/login.interface';
 import { ResponseAcceso } from '../../../core/models/responseAccess.interface';
 import { response } from 'express';
+import { LocalStorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  getUserInfo(): any {
-    throw new Error('Method not implemented.');
-  }
+  public loginStatusSubjec = new Subject<boolean>();
 
   private tokenKey = 'jwt'
   private apiUrl = `${environment.apiUrl}`
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private localStorageS:LocalStorageService) { }
 
   //iniciar sesion y establecer el token en localStorage
  
@@ -41,25 +40,27 @@ export class LoginService {
    }
 
   public setToken(token: string){
-    localStorage.setItem(`${this.tokenKey}`, token)
+    this.localStorageS.set(`${this.tokenKey}`, token)
     return true
   }
 
   //validar que el usuario este conectado
-  public isLoggedIn(){
-    let tokenStr = localStorage.getItem(this.tokenKey);
+  public isLoggedIn(): boolean{
+    
+    const tokenStr = this.localStorageS.get(this.tokenKey);
     if(tokenStr == undefined || tokenStr == '' || tokenStr == null){
       return false
     }else{
       return true
     }
+  
   }
 
   //cerrar sesion y eliminar token
 
 
   public logOut(){
-    localStorage.removeItem(this.tokenKey);
+    this.localStorageS.remove(this.tokenKey);
     this.router.navigate(['/auth'])
     
   }

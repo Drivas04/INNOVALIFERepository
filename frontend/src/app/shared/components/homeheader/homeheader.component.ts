@@ -15,11 +15,21 @@ export class HomeheaderComponent  implements OnInit{
   
   loginS = inject(LoginService)
   router = inject(Router)
-isLogged: any;
-  
+  isloggedIn = false
+ 
   ngOnInit(): void {
-      this.loginS.isLoggedIn
-    }
+    this.isloggedIn = this.loginS.isLoggedIn();
+    this.loginS.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isloggedIn = this.loginS.isLoggedIn()
+      }
+    )
+  }
+  
+  public logOut(){
+    this.loginS.logOut()
+  }
+ 
    
 }
   
