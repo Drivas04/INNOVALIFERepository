@@ -1,5 +1,7 @@
 package com.innovalife.cita;
 
+import com.innovalife.mail.MailService;
+import com.innovalife.mail.MailStructure;
 import com.innovalife.utils.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public class CitaController {
     }
 
     @PutMapping("/actualizarCita/{id}")
-    public ResponseEntity<Cita> updateById(@PathVariable Integer id, @RequestBody Cita cita){
+    public ResponseEntity<Cita> updateById(@PathVariable Integer id, @RequestBody Cita cita, @RequestBody MailStructure cuerpoMail){
         if(!citaRepository.existsById(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -54,6 +56,11 @@ public class CitaController {
         cita.setDescripcion(cita.getDescripcion());
 
         Cita nuevaCita = citaRepository.save(cita);
+
+        MailService mailService = new MailService();
+        String emailUsuario = cita.getUsernameUsuario().getEmail();
+
+        mailService.sendMail(emailUsuario, cuerpoMail);
 
         return new ResponseEntity<>(nuevaCita, HttpStatus.OK);
 

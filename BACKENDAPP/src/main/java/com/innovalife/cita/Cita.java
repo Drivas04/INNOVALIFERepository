@@ -1,6 +1,6 @@
 package com.innovalife.cita;
 
-import com.innovalife.entity.Personal;
+import com.innovalife.personal.Personal;
 import com.innovalife.servicio.Servicio;
 import com.innovalife.usuario.Usuario;
 import jakarta.persistence.*;

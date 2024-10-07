@@ -1,5 +1,6 @@
-package com.innovalife.entity;
+package com.innovalife.personal;
 
+import com.innovalife.entity.Entidad;
 import com.innovalife.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;

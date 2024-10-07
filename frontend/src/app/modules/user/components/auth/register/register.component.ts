@@ -54,16 +54,14 @@ export class RegisterComponent implements OnInit{
     password: this.formRegistro.value.password
    }
 
-   this.userS.registerUser(objeto).subscribe({
-    next: (data: any) => {    
+  this.userS.registerUser(objeto).subscribe({
+    next: (data) => {    
       console.log(data)      
     },
     error: (error) =>{
-      if(error.status === HttpStatusCode.Conflict){
-        console.log('Error en el registro', error.error.mensaje)
-      }else{ 
+      
       console.log("Error", error)
-    } 
+    
     },
     complete: () =>{
       this._snackBar.showSnackBar("Has sido registrado con exito")
