@@ -2,7 +2,10 @@ package com.innovalife.cita;
 
 import com.innovalife.mail.MailService;
 import com.innovalife.mail.MailStructure;
+import com.innovalife.servicio.Servicio;
+import com.innovalife.servicio.ServicioRepository;
 import com.innovalife.usuario.UserRepository;
+import com.innovalife.utils.Propiedades;
 import com.innovalife.utils.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class CitaController {
     @Autowired
     private MailService mailService;
 
+    MailStructure mailStructure = new MailStructure();
+
+    Propiedades propiedades = new Propiedades();
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping(value="listaCitas")
@@ -66,11 +72,15 @@ public class CitaController {
         if(citaRepository.existsById(cita.getId())){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        citaRepository.save(cita);
-        return ResponseEntity.ok(cita);
+        Cita nuevaCita = citaRepository.save(cita);
+        Servicio servicio = nuevaCita.getIdServicio();
+        mailStructure.setSubject(propiedades.getProperty("ASUNTO_NUEVA_CITA"));
+        mailStructure.setBody("Tu cita de "+servicio.getNombre()+" ha sido agendada para el "+cita.getFechaCita()+".\n¡No faltes! ");
+        mailService.sendMail(nuevaCita.getUsernameUsuario().getEmail(), mailStructure);
+        return ResponseEntity.status(HttpStatus.OK).body(nuevaCita);
     }
 
-    @PreAuthorize("isAuthenticated() or hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated() or hasAuthority('ADMIN')")
     @PutMapping("/actualizarCita/{id}")
     public ResponseEntity<Cita> updateById(@PathVariable Integer id, @RequestBody Cita cita){
         Cita actual = citaRepository.getById(id);
@@ -88,10 +98,10 @@ public class CitaController {
 
         System.out.println(emailUsuario);
 
-        MailStructure mailStructure = new MailStructure();
+        Servicio servicio = actual.getIdServicio();
 
-        mailStructure.setSubject("Cita Actualizada");
-        mailStructure.setBody("Su cita ha sido actualizada");
+        mailStructure.setSubject(propiedades.getProperty("ASUNTO_EDICION_CITA"));
+        mailStructure.setBody("Su cita de "+servicio.getNombre()+" ha sido actualizada.\nFecha: "+cita.getFechaCita()+"\nEstado: "+cita.getEstado()+"\nDescripcion: "+cita.getDescripcion());
 
         mailService.sendMail(emailUsuario, mailStructure);
 

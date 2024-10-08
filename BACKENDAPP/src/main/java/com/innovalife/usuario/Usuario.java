@@ -1,6 +1,6 @@
 package com.innovalife.usuario;
 
-import com.innovalife.entity.Entidad;
+import com.innovalife.entidad.Entidad;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
