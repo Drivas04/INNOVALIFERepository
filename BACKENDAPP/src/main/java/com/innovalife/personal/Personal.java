@@ -14,10 +14,10 @@ public class Personal {
     @Column(name = "cedula", nullable = false, length = 20)
     private String cedula;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cedula", nullable = false)
-    private Usuario usuario;
+//    @MapsId
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "cedula", nullable = false)
+//    private Usuario usuario;
 
     @Column(name = "nombres", length = 100)
     private String nombres;
