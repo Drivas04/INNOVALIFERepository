@@ -1,6 +1,6 @@
 package com.innovalife.servicio;
 
-import com.innovalife.entity.Entidad;
+import com.innovalife.entidad.Entidad;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,6 @@
 package com.innovalife.personal;
 
-import com.innovalife.entity.Entidad;
-import com.innovalife.usuario.Usuario;
+import com.innovalife.entidad.Entidad;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +13,10 @@ public class Personal {
     @Column(name = "cedula", nullable = false, length = 20)
     private String cedula;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cedula", nullable = false)
-    private Usuario usuario;
+//    @MapsId
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "cedula", nullable = false)
+//    private Usuario usuario;
 
     @Column(name = "nombres", length = 100)
     private String nombres;

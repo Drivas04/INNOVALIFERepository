@@ -99,6 +99,7 @@
 			<version>1.18.32</version>
 			<scope>annotationProcessor</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -109,5 +110,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
