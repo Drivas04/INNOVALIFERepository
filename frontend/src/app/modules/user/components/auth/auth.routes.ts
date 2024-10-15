@@ -3,12 +3,14 @@ import { LoginComponent } from './login/login.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import path from 'path';
 import { RegisterComponent } from './register/register.component';
+import { authGuard } from '../../../../core/guards/auth.guard';
 
 export const routes: Routes = 
 [ 
     {
         path: 'login',
-        component:LoginComponent
+        component:LoginComponent,
+        
     },
     { 
         path:'confirm',
@@ -16,7 +18,8 @@ export const routes: Routes =
     },
     {
         path:'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        
     },
     {
         path: '**',

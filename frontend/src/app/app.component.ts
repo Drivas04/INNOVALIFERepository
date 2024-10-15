@@ -1,7 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HomepageComponent } from './shared/components/homepage/homepage.component';
+import { Component} from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet, Event} from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { IStaticMethods } from 'preline/preline';
+declare global {
+  interface Window {
+    HSStaticMethods: IStaticMethods;
+  }
+}
+
 
 @Component({
   selector: 'app-root',
@@ -11,5 +17,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'frontend';
+  
+  constructor(private router: Router){}
+ 
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+          setTimeout(() => {
+            window.HSStaticMethods?.autoInit();
+          }, 100);
+        }
+      });
+    }
+  }
+  
 }

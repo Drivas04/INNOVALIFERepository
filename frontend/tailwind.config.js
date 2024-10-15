@@ -3,6 +3,7 @@ module.exports = {
   darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
+    './node_modules/preline/preline.js',
   ],
   theme: {
     
@@ -33,5 +34,7 @@ module.exports = {
     },
     
   },
-  plugins: [],
+  plugins: [
+    require('preline/plugin')
+  ],
 }
