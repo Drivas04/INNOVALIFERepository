@@ -17,8 +17,7 @@ export function authGuard(route: ActivatedRouteSnapshot, state: RouterStateSnaps
 
   if (state.url.startsWith('/user')) {
     // Usuario no autenticado intentando acceder a rutas protegidas
-    return router.createUrlTree(['/auth/login'], { queryParams: { returnUrl: state.url }});
+    return router.createUrlTree(['/auth/login',], { queryParams: { returnUrl: state.url }});
   }
-
   return true;
 }

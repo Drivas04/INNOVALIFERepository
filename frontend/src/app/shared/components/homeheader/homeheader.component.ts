@@ -15,9 +15,18 @@ export class HomeheaderComponent  implements OnInit{
   
   loginS = inject(LoginService)
   router = inject(Router)
-  isloggedIn = false
+  isloggedIn = false;
+  isLoginPage = false
  
   ngOnInit(): void {
+
+    this.checkCurrentRoute();
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd) // Solo escuchar cuando la navegación ha terminado
+    ).subscribe(() => {
+      this.checkCurrentRoute();
+    });
     this.isloggedIn = this.loginS.isLoggedIn();
     this.loginS.loginStatusSubjec.asObservable().subscribe(
       data => {
@@ -28,6 +37,14 @@ export class HomeheaderComponent  implements OnInit{
   
   public logOut(){
     this.loginS.logOut()
+  }
+
+  public volver(){
+    this.router.navigate(['/home'])
+  }
+  checkCurrentRoute(): void {
+    // Detectar si la URL actual es la página de login o relacionada
+    this.isLoginPage = this.router.url.startsWith('/auth/login') || this.router.url.startsWith('/auth/identify');
   }
  
    

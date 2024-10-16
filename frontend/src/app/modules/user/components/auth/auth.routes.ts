@@ -4,6 +4,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import path from 'path';
 import { RegisterComponent } from './register/register.component';
 import { authGuard } from '../../../../core/guards/auth.guard';
+import { RecuperacionComponent } from './recuperacion/recuperacion.component';
 
 export const routes: Routes = 
 [ 
@@ -20,6 +21,10 @@ export const routes: Routes =
         path:'register',
         component: RegisterComponent,
         
+    },
+    {
+        path:'identify',
+        component: RecuperacionComponent
     },
     {
         path: '**',

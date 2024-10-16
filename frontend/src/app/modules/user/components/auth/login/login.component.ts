@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       next: (data: any) =>{
         const token = data.token
         this.loginS.setToken(token)
-        console.log(data)
+        
       },     
       error: (err) => {     
         console.log("Error", err)

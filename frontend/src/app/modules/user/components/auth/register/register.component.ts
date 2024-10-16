@@ -53,21 +53,26 @@ export class RegisterComponent implements OnInit{
     email: this.formRegistro.value.email,
     password: this.formRegistro.value.password
    }
-
-  this.userS.registerUser(objeto).subscribe({
-    next: (data) => {    
-      console.log(data)      
+   
+   this.userS.registerUser(objeto).subscribe({
+    next: (data: any) => {
+      const token = data.token
+      if (data.token) {
+        
+        this._snackBar.showSnackBar("Has sido registrado con éxito");
+        this.router.navigate(['/auth']);
+      } else {
+        
+        this._snackBar.showSnackBar("Usuario ya existe", "OK");
+      }
     },
-    error: (error) =>{
+    error: (error) => {
       
-      console.log("Error", error)
-    
-    },
-    complete: () =>{
-      this._snackBar.showSnackBar("Has sido registrado con exito")
-      this.router.navigate(['/auth'])
+      console.log("Error", error);
     }
-   })
+  });
+  
+  
  
 
   }

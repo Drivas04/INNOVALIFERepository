@@ -1,0 +1,23 @@
+<app-homeheader></app-homeheader>
+  
+<div class="min-h-[80vh] flex items-center justify-center bg-main">
+    <div class="max-w-md w-full p-6 bg-white rounded-xl shadow-lg">
+      
+      <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">¿Has olvidado tu contraseña?</h1> 
+      <div class="text-center mt-8 mb-6">
+        <p class="text-sm"> ¿Recodaste tu contraseña? <button routerLink="/auth" class="font-bold"> Iniciar sesión</button></p>
+      </div>
+      <p class="text-sm text-gray-600 text-center mt-8 mb-6">Introduce tu correo electrónico para restablecer tu contraseña</p> 
+      <form>
+        <div class="mb-6">
+          <label for="email" class="block mb-2 text-sm text-gray-600">Correo electrónico</label>
+          <input type="email" name="email" [(ngModel)]="email"  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Ingresa tu correo">
+        </div>
+        <button (click)="updatePasswords()" type="submit" class="bg-butons w-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-4">Enviar</button>
+      </form>
+      
+      
+    </div>
+  </div>
+
+  <app-footer></app-footer>

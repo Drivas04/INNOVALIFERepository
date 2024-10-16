@@ -1,24 +1,42 @@
-import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { LoginService } from '../../modules/user/services/login.service';
-import { catchError, Observable, throwError,  } from 'rxjs';
+import { HttpEvent, HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { SnackbarService } from '../../modules/user/services/snackbar.service';
 
+export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const router = inject(Router);
+  const snackBar = inject(SnackbarService);
 
-export const LoginErrorInterceptor: HttpInterceptorFn = (req, next) => {
-
-  const _snackBar = inject(SnackbarService)
   return next(req).pipe(
-    catchError(error => {
-      if (error.status === 401) {
-        _snackBar.showSnackBar('Acceso no valido', 'OK');
-      } else if (error.status === 403) {
-        _snackBar.showSnackBar('Credenciales incorrectas', 'OK');
-      } else {
-        _snackBar.showSnackBar('Error inesperado', 'OK');
+    catchError((error: HttpErrorResponse) => {
+      
+
+      if (error instanceof HttpErrorResponse) {
+        switch (error.status) {
+          case 401:
+            snackBar.showSnackBar('Credenciales incorrectas', "Ok")
+            break;
+          case 403:
+            snackBar.showSnackBar('Credenciales incorrectas', "Ok")
+            break;
+          case 409:
+            snackBar.showSnackBar('El usuario ya existe', "Ok")
+            break;                    
+          default:
+            snackBar.showSnackBar("Error inesperado","OK")
+        }
+
+        // Mostrar snackbar con el error
+        snackBar.showSnackBar("Error, credenciales invalidas", "OK")
       }
-      return throwError(() => error);
+
+      return throwError(error);
     })
   );
 };
+
+
 

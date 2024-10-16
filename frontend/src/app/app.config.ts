@@ -4,8 +4,8 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { LoginErrorInterceptor } from './core/interceptores/auth.interceptor';
-import { ErrorInterceptor } from './core/interceptores/register.interceptor';
+
+import { errorInterceptor } from './core/interceptores/auth.interceptor';
 
 
 
@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
   [
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), 
     provideClientHydration(),
-    provideHttpClient(withFetch(), withInterceptors([ErrorInterceptor,LoginErrorInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([errorInterceptor,])),
     provideAnimationsAsync()
   ]
 };

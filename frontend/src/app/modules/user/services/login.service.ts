@@ -26,17 +26,8 @@ export class LoginService {
     return this.http.post<Login>(`${this.apiUrl}/auth/login`, user)
   }
   
-  registerUser(user: User): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/auth/registrate`, user).pipe(
-      tap(
-        response => {
-          if(response.token) {
-            console.log('Registro exitoso', response.token)
-          }
-        }
-      )
-    )
-     
+  registerUser(user: User): Observable<User>{
+    return this.http.post<any>(`${this.apiUrl}/auth/registrate`, user) 
    }
 
   public setToken(token: string){

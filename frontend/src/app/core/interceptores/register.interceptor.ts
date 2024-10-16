@@ -1,7 +1,7 @@
 // register.interceptor.ts
 
 
-import {  HttpErrorResponse, HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
+/*import {  HttpErrorResponse, HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -18,4 +18,4 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
       return throwError(() => error);
     })
   );
-};
+};*/
