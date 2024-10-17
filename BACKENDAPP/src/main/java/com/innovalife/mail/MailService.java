@@ -38,13 +38,13 @@ public class MailService {
                 "        <h2>Recuperación de contraseña</h2>\n" +
                 "        <p>Hola,</p>\n" +
                 "        <p>Recibimos una solicitud para restablecer tu contraseña. Si realizaste esta solicitud, haz clic en el siguiente enlace para cambiar tu contraseña:</p>\n" +
-                "        <a href='http://localhost:8080/usuario/set-password'>Restablecer contraseña</a>\n" +
+                "        <a href='http://localhost:4200/auth/updatePassword'>Restablecer contraseña</a>\n" +
                 "        <p>Si no solicitaste un cambio de contraseña, puedes ignorar este correo.</p>\n" +
                 "        <p>Gracias,</p>\n" +
                 "        <p>El equipo de SIGESME</p>\n" +
                 "        <div>\n" +
                 "            <p>Si tienes problemas para hacer clic en el botón de <b>Restablecer contraseña</b>, copia y pega el siguiente enlace en tu navegador:</p>\n" +
-                "            <p>http://localhost:8080/usuario/set-password</p>\n" +
+                "            <p>http://localhost:4200/auth/updatePassword</p>\n" +
                 "        </div>\n" +
                 "    </div>", true);
         mailSender.send(mimeMessage);
