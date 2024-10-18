@@ -17,11 +17,13 @@ public class EntidadController {
     @Autowired
     EntidadRepository entidadRepository;
 
+    @PreAuthorize("hasAuthority('USER') and isAuthenticated()")
     @GetMapping(value = "lista-entidades")
     public List<Entidad> getAll() {
         return entidadRepository.findAll();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "mi-entidad/{NIT}")
     public ResponseEntity<Entidad> getById(@PathVariable String NIT){
         if(!entidadRepository.existsById(NIT)){
@@ -31,6 +33,7 @@ public class EntidadController {
         return new ResponseEntity<>(entidad, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') and isAuthenticated()")
     @PutMapping(value = "editarDatos/{NIT}")
     public ResponseEntity<Entidad> editarDatos(@PathVariable String NIT, @RequestBody Entidad nuevo){
         if(!entidadRepository.existsById(NIT)){
