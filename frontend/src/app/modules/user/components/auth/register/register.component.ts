@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit{
       const token = data.token
       if (data.token) {
         
-        this._snackBar.showSnackBar("Has sido registrado con éxito");
+        this._snackBar.showSnackBar("Has sido registrado con éxito", "OK");
         this.router.navigate(['/auth']);
       } else {
         
