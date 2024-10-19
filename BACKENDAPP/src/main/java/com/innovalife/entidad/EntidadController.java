@@ -23,6 +23,7 @@ public class EntidadController {
         return entidadRepository.findAll();
     }
 
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "mi-entidad/{NIT}")
     public ResponseEntity<Entidad> getById(@PathVariable String NIT){
