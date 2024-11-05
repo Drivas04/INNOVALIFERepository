@@ -12,17 +12,19 @@ import java.util.List;
 @RequestMapping("/servicios")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ADMIN')")
+
 public class ServicioController {
 
     @Autowired
     private ServicioRepository servicioRepository;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value="listaServicios")
     public List<Servicio> listaServicios() {
         return servicioRepository.findAll();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value="servicio/{id}")
     public ResponseEntity<Servicio> getById(@PathVariable Integer id) {
         Servicio servicio = servicioRepository.findById(id).orElse(null);
@@ -32,6 +34,7 @@ public class ServicioController {
         return ResponseEntity.ok(servicio);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND isAuthenticated()")
     @PostMapping(value="agregarServicio")
     public ResponseEntity<Servicio> agregarServicio(@RequestBody Servicio servicio) {
         if (servicioRepository.existsById(servicio.getId())) {
@@ -41,6 +44,7 @@ public class ServicioController {
         return ResponseEntity.ok(servicio);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND isAuthenticated()")
     @PutMapping(value="editarServicio/{id}")
     public ResponseEntity<Servicio> updateById(@PathVariable Integer id, @RequestBody Servicio servicio) {
         Servicio servicioEditado = servicioRepository.findById(id).orElse(null);
@@ -53,6 +57,7 @@ public class ServicioController {
         return ResponseEntity.ok(nuevoServicio);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND isAuthenticated()")
     @DeleteMapping(value="eliminarServicio/{id}")
     public ResponseEntity<Servicio> deleteById(@PathVariable Integer id) {
         Servicio servicio = servicioRepository.findById(id).orElse(null);
