@@ -20,7 +20,7 @@ public class Servicio {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "NIT_entidad")
     private Entidad nitEntidad;
 
