@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class Propiedades {
 
-    private Properties prop = new Properties();
+    private static Properties prop = new Properties();
 
     public Propiedades() {
         try {
@@ -21,7 +21,7 @@ public class Propiedades {
         }
     }
 
-    public String getProperty(String key) {
+    public static String getProperty(String key) {
         return prop.getProperty(key);
     }
 }

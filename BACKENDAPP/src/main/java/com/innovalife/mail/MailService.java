@@ -1,5 +1,6 @@
 package com.innovalife.mail;
 
+import com.innovalife.utils.Propiedades;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -34,19 +35,7 @@ public class MailService {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(email);
         mimeMessageHelper.setSubject("Recupera tu contraseña");
-        mimeMessageHelper.setText("<div>\n" +
-                "        <h2>Recuperación de contraseña</h2>\n" +
-                "        <p>Hola,</p>\n" +
-                "        <p>Recibimos una solicitud para restablecer tu contraseña. Si realizaste esta solicitud, haz clic en el siguiente enlace para cambiar tu contraseña:</p>\n" +
-                "        <a href='http://localhost:4200/auth/updatePassword'>Restablecer contraseña</a>\n" +
-                "        <p>Si no solicitaste un cambio de contraseña, puedes ignorar este correo.</p>\n" +
-                "        <p>Gracias,</p>\n" +
-                "        <p>El equipo de SIGESME</p>\n" +
-                "        <div>\n" +
-                "            <p>Si tienes problemas para hacer clic en el botón de <b>Restablecer contraseña</b>, copia y pega el siguiente enlace en tu navegador:</p>\n" +
-                "            <p>http://localhost:4200/auth/updatePassword</p>\n" +
-                "        </div>\n" +
-                "    </div>", true);
+        mimeMessageHelper.setText(Propiedades.getProperty("CUERPO_RECUPERACION_CONTRASEÑA"), true);
         mailSender.send(mimeMessage);
     }
 }
