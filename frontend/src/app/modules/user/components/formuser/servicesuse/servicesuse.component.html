@@ -1,1 +1,37 @@
-<p>servicesuse works!</p>
+<app-homeheader></app-homeheader>
+
+<div class="flex justify-center items-center min-h-[90vh] bg-main">
+    <div class="w-full max-w-lg p-6 bg-main rounded-lg shadow-lg text-center">
+      
+      <!-- Sección de Entidad, se agrega el nombre de la entidad-->
+      <div class="flex items-center gap-3 mb-4">
+        <img src="favicon.ico" alt="Entidad" class="border-full" />
+        <h2 class="text-lg font-semibold">Entidad</h2>
+      </div>
+      <div class="w-full border-b-2 border-butons"></div>
+  
+      <!-- Título -->
+      <h3 class="text-2xl font-bold my-3">Servicios</h3>
+  
+      <!-- Barra de búsqueda  se agrega un filter para filtrar los servicios-->
+      <div class="flex items-center mb-6">
+        <input type="text" placeholder="Escoja el servicio que desea" 
+               class="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none" />
+        <button class="bg-blue-500 text-white p-2 rounded-r-md">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+  
+      <!-- Lista de Servicios  En esta parte se accede al ciclo for por la cantidad de servicios que hay-->
+       @for (servicio of servicios; track $index) { 
+         <div class="space-y-4 mt-3">
+           <button class="w-full flex justify-between items-center p-3 bg-butons text-white rounded-md font-medium">
+             {{servicio.nombre}} <span class="text-sm opacity-75">{{servicio.descripcion}}</span><i class="fas fa-info-circle"></i>
+           </button>
+         </div>
+       }
+       
+  
+    </div>
+  </div>
+

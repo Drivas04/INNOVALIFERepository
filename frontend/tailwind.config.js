@@ -30,7 +30,8 @@ module.exports = {
       'txt main' : '#3e4560',
       'butons' : '#00abe4',
       'white' : '#ffffff',
-      'headfoot':'#e0e7ff'
+      'headfoot':'#e0e7ff',
+      'greeen':'#a1e585'
     },
     
   },

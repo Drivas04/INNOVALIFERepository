@@ -7,7 +7,7 @@ export class LocalStorageService {
   constructor() {}
 
   get(key: string, token?: string): string | null {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' ) {
       return localStorage.getItem(key);
     }
     return null;

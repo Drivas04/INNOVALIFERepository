@@ -15,7 +15,7 @@ import { NgFor } from '@angular/common';
 })
 export class UserhomeComponent implements OnInit {
   ngOnInit(): void {
-    this.getProducts()
+    this.getEntities()
   }
    
 
@@ -23,9 +23,9 @@ export class UserhomeComponent implements OnInit {
   entidadS = inject(EntidadService)
 
 
-  getProducts(){
+  getEntities(){
     this.entidadS.getListEntities().subscribe(data => {
-      this.ListEntities = data
+      this.ListEntities = data;
     })
   }
 

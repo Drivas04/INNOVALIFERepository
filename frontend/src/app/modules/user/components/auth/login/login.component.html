@@ -4,10 +4,10 @@
     <div class="items-center justify-center mt-5 font-extrabold text-5xl">
         <h1 class="text-center ">Inicia Sesion</h1>
     </div>
-    <div class="flex flex-col items-center text-4xl mt-7">      
-        <div class="flex flex-col ">
-            <div class=" justify-center m-2 rounded-lg">
-                <button type="button" class="py-2.5 px-3 w-full inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+    <div class="flex flex-col items-center text-4xl mt-7 w-full">      
+        <div class="flex flex-col">
+            <div class=" justify-center m-2 rounded-lg ">
+                <button type="button" class="py-2.5 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     <svg class="shrink-0 size-4" width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_4132_5805adfqfqdq121)">
                         <path d="M32.2566 16.36C32.2566 15.04 32.1567 14.08 31.9171 13.08H16.9166V19.02H25.7251C25.5454 20.5 24.5866 22.72 22.4494 24.22L22.4294 24.42L27.1633 28.1L27.4828 28.14C30.5189 25.34 32.2566 21.22 32.2566 16.36Z" fill="#4285F4"></path>
@@ -30,17 +30,36 @@
             <p class="text-center text-lg">Inicia sesion con tus credenciales</p>
             <form [formGroup]="formLogin" class="mt-2 ">
                <div class="flex flex-col justify-center"> 
-                <input formControlName="username" class="font-extralight text-center w-full text-xl p-2"  type="text" placeholder="Ingresa tu cedula"/>
-                @if (hasErrors('username', 'required')) {
-                    <span class="text-sm text-center">La cedula es <strong>Obligatoria</strong></span>
-                }
-                @if (hasErrors('username', 'minlength')) {
-                    <span class="text-sm text-center">La cedula debe tener 8 caracteres como minimo</span>
-                }
-                @if (hasErrors('username', 'maxlength')) {
-                    <span class="text-sm text-center">La cedula debe tener 10 caracteres como maximo</span>
-                }
-                <input type="password" formControlName="password" class="font-extralight text-center w-full text-xl p-2 mt-2" placeholder="Ingresa tu contraseña">
+                
+                    <input formControlName="username" class="font-extralight text-center w-full text-xl p-2"  type="text" placeholder="Ingresa tu cedula"/>
+                    @if (hasErrors('username', 'required')) {
+                        <span class="text-sm text-center">La cedula es <strong>Obligatoria</strong></span>
+                    }
+                    @if (hasErrors('username', 'minlength')) {
+                        <span class="text-sm text-center">La cedula debe tener 8 caracteres como minimo</span>
+                    }
+                    @if (hasErrors('username', 'maxlength')) {
+                        <span class="text-sm text-center">La cedula debe tener 10 caracteres como maximo</span>
+                    }
+                
+              
+                    <div class="relative">
+                        <input formControlName="password" id="hs-toggle-password" placeholder="Ingresa tu contraseña" type="password" class="py-3 px-4 block w-full font-extralight text-xl text-center mt-3">
+                        <button type="button" data-hs-toggle-password='{
+                          "target": "#hs-toggle-password"
+                        }' class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500">
+                          <svg class="shrink-0 size-3.5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                            <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                            <path class="hs-password-active:hidden" d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                            <line class="hs-password-active:hidden" x1="2" x2="22" y1="2" y2="22"></line>
+                            <path class="hidden hs-password-active:block" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                            <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </button>
+                      </div>
+                
+
                 @if (hasErrors('password' , 'required')) {
                     <span class="text-sm text-center">La contraseña es <strong>Obligatoria</strong></span>
                 }

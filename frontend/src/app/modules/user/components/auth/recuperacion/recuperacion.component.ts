@@ -33,8 +33,9 @@ export class RecuperacionComponent {
         console.log(data)
       },
       error: (err) => {
+        this._snackbar.showSnackBar("Error con el servidor, por favor intenta mas tarde", "OK")
         this.loading = false
-        console.log(err)
+        console.log("Error: ",err)
       },
       complete: () => {
         this._snackbar.showSnackBar("Correo enviado con exito, revisa tu bandeja de entrada", "OK")

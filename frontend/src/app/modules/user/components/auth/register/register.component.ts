@@ -2,14 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { FooterComponent } from '../../../../../shared/components/footer/footer.component';
 import { HomeheaderComponent } from '../../../../../shared/components/homeheader/homeheader.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../../core/models/user.interface';
 import { CommonModule, NgClass } from '@angular/common';
-import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { LoginService } from '../../../services/login.service';
+
 
 
 @Component({
@@ -33,8 +32,20 @@ export class RegisterComponent implements OnInit{
     lastnames: ['', [Validators.required]],
     phone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  })
+    password: ['', Validators.required],
+    repeatPassword: ['', [Validators.required]]
+  }, {validators: this.passwordMatchValidator})
+
+  passwordMatchValidator(form: AbstractControl) {
+    const password = form.get('password')?.value;
+    const repeatPassword = form.get('repeatPassword')?.value;
+
+    if (password !== repeatPassword) {
+      form.get('repeatPassword')?.setErrors({ mismatch: true });
+    } else {
+      form.get('repeatPassword')?.setErrors(null);
+    }
+  }
   
   
 
@@ -44,6 +55,9 @@ export class RegisterComponent implements OnInit{
 
   registerUser(){
    if(this.formRegistro.invalid) return;
+   
+   
+ 
 
    const objeto:User = {
     username: this.formRegistro.value.username,
@@ -51,8 +65,10 @@ export class RegisterComponent implements OnInit{
     lastnames: this.formRegistro.value.lastnames,
     phone: this.formRegistro.value.phone,
     email: this.formRegistro.value.email,
-    password: this.formRegistro.value.password
+    password: this.formRegistro.value.password,
+    repeatPassword: this.formRegistro.value.repeatPassword
    }
+   
    
    this.userS.registerUser(objeto).subscribe({
     next: (data: any) => {
@@ -63,11 +79,11 @@ export class RegisterComponent implements OnInit{
         this.router.navigate(['/auth']);
       } else {
         
-        this._snackBar.showSnackBar("Usuario ya existe", "OK");
+        this._snackBar.showSnackBar("Este usuario ya existe en nuestra base de datos, porfavor intenta con otro", "OK");
       }
     },
     error: (error) => {
-      
+      this._snackBar.showSnackBar("Error con el servidor, por favor intenta mas tarde", "OK")
       console.log("Error", error);
     }
   });

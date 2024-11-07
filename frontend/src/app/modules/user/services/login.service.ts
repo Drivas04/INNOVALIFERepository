@@ -14,7 +14,8 @@ import { LocalStorageService } from './localstorage.service';
 })
 export class LoginService {
   public loginStatusSubjec = new Subject<boolean>();
-
+  
+  private userKey = 'user'
   private tokenKey = 'jwt'
   private apiUrl = `${environment.apiUrl}`
 
@@ -28,6 +29,10 @@ export class LoginService {
   
   registerUser(user: User): Observable<User>{
     return this.http.post<any>(`${this.apiUrl}/auth/registrate`, user) 
+   }
+
+   getCurrentUser(){
+    return this.http.get(`${this.apiUrl}/auth/usuario-actual`)
    }
 
   public setToken(token: string){
@@ -52,31 +57,31 @@ export class LoginService {
 
   public logOut(){
     this.localStorageS.remove(this.tokenKey);
-    this.router.navigate(['/auth'])
-    
-  }
+    this.localStorageS.remove(this.userKey);   
+    this.router.navigate(['/auth']) 
+  } 
 
   //obtener token
   public getToken(){
     return localStorage.getItem(this.tokenKey)
   }
-  /*dar usuario al localStorage
-  public setUser(user: User){
-    localStorage.setItem('user', JSON.stringify(user));
+  //dar usuario al localStorage
+  public setUser(user: any){
+    return this.localStorageS.set('user', JSON.stringify(user));
   }
 
-  dar el usuario
-  public getUser(){ 
-  let userStr = localStorage.getItem('user')
-  
-  //validar si existe el suaurio, sino cerrar sesion
-  if(userStr != null){
-    return JSON.parse(userStr)
-   }else{
-    this.logOut
-    return null
-   }
-  }*/
+  //dar el usuario
+  getUser() {
+    if(this.userKey != null){
+      return JSON.parse(this.localStorageS.get(this.userKey)!)
+    }else{
+      this.logOut()
+      return null
+    }
+      // Aquí puedes acceder de manera segura al localStorage
+      // Manejar el caso cuando no se encuentra el localStorage
+    
+  }
 
   
 

@@ -17,6 +17,7 @@ export class HomeheaderComponent  implements OnInit{
   router = inject(Router)
   isloggedIn = false;
   isLoginPage = false
+  user!:any 
  
   ngOnInit(): void {
 
@@ -28,9 +29,12 @@ export class HomeheaderComponent  implements OnInit{
       this.checkCurrentRoute();
     });
     this.isloggedIn = this.loginS.isLoggedIn();
+    
+    this.user = this.loginS.getUser()
     this.loginS.loginStatusSubjec.asObservable().subscribe(
       data => {
         this.isloggedIn = this.loginS.isLoggedIn()
+        this.user = this.loginS.getUser()
       }
     )
   }

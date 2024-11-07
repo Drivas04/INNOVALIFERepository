@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { registerInterceptor } from './register.interceptor';
+import { registerInterceptor } from './errorstatus.interceptor';
 
 describe('registerInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) => 

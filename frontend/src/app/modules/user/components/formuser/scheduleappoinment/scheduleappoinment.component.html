@@ -1,1 +1,44 @@
-<p>scheduleappoinment works!</p>
+<app-homeheader></app-homeheader>
+
+<div class="flex justify-center items-center h-[90vh] bg-main">
+    <div class="bg-main rounded-lg shadow-md p-6 w-full max-w-md">
+      <!-- Título e ícono de entidad -->
+      <div class="flex items-center gap-2 mb-4">
+        <img src="favicon.ico" alt="Entidad" class="w-8 h-8" />
+        <h2 class="text-xl font-semibold">Empresa</h2>
+      </div>
+  
+      <!-- Línea separadora -->
+      <div class="border-b-2 border-butons mb-4"></div>
+  
+      <!-- Título principal -->
+      <h3 class="text-2xl font-bold text-center mb-4">Horario de turnos</h3>
+  
+      <!-- Calendario (Placeholder) -->
+      <div class="flex justify-center mb-6">
+        <!-- Aquí puedes insertar el calendario de tu preferencia -->
+        <input type="date" class="border rounded p-2 text-center">
+      </div>
+  
+      <!-- Horas disponibles -->
+      <h3 class="text-xl font-bold text-center mb-4">Horas disponibles</h3>
+      <div class="flex flex-wrap justify-center gap-2 mb-6">
+        <!-- Horas disponibles de acuerdo a la fecha escogida -->
+        <button class="bg-greeen text-green-700 px-3 py-1 rounded-full">8:00 a.m</button>
+        <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">9:00 a.m</span>
+        <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">10:00 a.m</span>
+        <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">11:00 a.m</span>
+        <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">12:00 p.m</span>
+        <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">2:00 p.m</span>
+      </div>
+  
+      <!-- Botón "Agendar" -->
+      <div class="flex justify-center">
+        <button class="bg-butons text-white px-6 py-2 rounded-full hover:bg-blue-600">
+          Agendar
+        </button>
+      </div>
+    </div>
+  </div>
+  
+<app-footer></app-footer>

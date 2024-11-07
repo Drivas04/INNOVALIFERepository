@@ -36,17 +36,11 @@
                     <span class="text-sm text-center">El email es <strong>Obligatorio</strong></span>
                 }
                 @if (hasErrors('email', 'email')) {
-                    <span class="text-sm text-center">Falta el arroba</span>
+                    <span class="text-sm text-center">El email debe tener un "Arroba" </span>
                 }
-                <input formControlName="password" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">
-                
-                @if (hasErrors('password', 'required')) {
-                    <span class="text-sm text-center">La contraseña es <strong>Obligatoria</strong></span>
-                }
-                
-                  
-                  <div class="relative">
-                    <input id="hs-toggle-password" placeholder="Ingresa tu contraseña" type="password" class="py-3 px-4 block w-full font-extralight text-xl text-center mt-3" >
+                <input formControlName="password" class="font-extralight text-center w-full text-xl p-2 mt-3" type="password" placeholder="Ingresa tu contraseña">                 
+                <div class="relative">
+                    <input formControlName="repeatPassword" id="hs-toggle-password" placeholder="Repite tu contraseña" type="password" class="py-3 px-4 block w-full font-extralight text-xl text-center mt-3" >
                     <button type="button" data-hs-toggle-password='{
                       "target": "#hs-toggle-password"
                     }' class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500">
@@ -59,8 +53,14 @@
                         <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"></circle>
                       </svg>
                     </button>
-                  </div>
-                  <p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
+                </div>
+                @if (hasErrors('password', 'required')) {
+                    <span class="text-sm text-center">Las contraseñas son <strong>Obligatoria</strong></span>
+                }
+                @if(hasErrors('repeatPassword', 'mismatch')){
+                    <span class="text-sm text-center">Las contraseñas deben ser <strong>Iguales</strong></span>
+                }
+    
                 
                 <button type="submit" class="bg-butons rounded-md w-full mt-4 font-extrabold text-xl p-2" (click)="registerUser()">Registrarse</button>               
               </div>

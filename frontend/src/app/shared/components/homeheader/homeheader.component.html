@@ -6,11 +6,14 @@
                     SIGESME
                 </h1>
             </a>
-            <div class="flex items-center lg:order-2">
+            <div class="flex items-end sm:order-3">
                <button *ngIf="!isloggedIn && !isLoginPage" routerLink="/auth/login" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Iniciar Sesion</button>    
                <button *ngIf="isloggedIn" (click)="logOut()" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Cerrar sesion</button>
                <button *ngIf="isLoginPage" (click)="volver()" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Volver</button>                                   
-            </div>         
+            </div>  
+            <div class="">
+                <button *ngIf="isloggedIn && user">{{user.names}}</button>
+            </div>      
         </div>
     </nav>
 </header>
