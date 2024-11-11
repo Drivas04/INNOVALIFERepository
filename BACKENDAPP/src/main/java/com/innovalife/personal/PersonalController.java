@@ -12,16 +12,18 @@ import java.util.List;
 @RequestMapping("/personal")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ADMIN')")
+
 public class PersonalController {
 
     private final PersonalRepository personalRepository;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "listaPersonal")
     public List<Personal> getALlPersonal() {
         return personalRepository.findAll();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "funcionario/{cedula}")
     public ResponseEntity<Personal> getPersonal(@PathVariable String cedula) {
         if (!personalRepository.existsById(cedula)) {
@@ -31,6 +33,7 @@ public class PersonalController {
         return new ResponseEntity<>(personal, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "registrarFuncionario")
     public ResponseEntity<Personal> registrarFuncionario(@RequestBody Personal personal) {
         if(personalRepository.existsById(personal.getCedula())){
@@ -40,6 +43,7 @@ public class PersonalController {
         return new ResponseEntity<>(nuevo, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping(value = "actualizarFuncionario/{cedula}")
     public ResponseEntity<Personal> actualizarFuncionario(@PathVariable String cedula, @RequestBody Personal personal) {
         if (!personalRepository.existsById(cedula)) {
@@ -50,6 +54,7 @@ public class PersonalController {
         return new ResponseEntity<>(personal, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping(value = "eliminarFuncionario/{cedula}")
     public ResponseEntity<Personal> eliminarFuncionario(@PathVariable String cedula) {
         if (!personalRepository.existsById(cedula)) {
