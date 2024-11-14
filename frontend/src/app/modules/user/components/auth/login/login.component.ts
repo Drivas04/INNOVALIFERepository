@@ -17,7 +17,7 @@ import { error } from 'console';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HomeheaderComponent, FooterComponent, ReactiveFormsModule, RouterLink, CommonModule, NgClass, FormsModule],
+  imports: [HomeheaderComponent, FooterComponent, ReactiveFormsModule, RouterLink, CommonModule,  FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

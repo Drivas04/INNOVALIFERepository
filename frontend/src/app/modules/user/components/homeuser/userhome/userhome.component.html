@@ -2,11 +2,15 @@
 <div class="flex flex-col items-center h-[80vh] bg-main ">
 <!-- Contenido principal -->
 <div class="flex flex-col  items-center mt-48 ">
+  <span class="text-center">Escoge la entidad en la que deseas sacar algun turno</span>
     <!-- Campo de búsqueda -->
-    <div class="relative">
-      <select class="rounded-md py-2 px-4 w-full sm:w-1/3 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
-        <option *ngFor="let entidad of ListEntities" [value]="entidad.nombre">{{ entidad.nombre }}</option>
-      </select>
+    <div class="entidades-container mt-4">
+      <div  *ngFor="let entidad of ListEntities" 
+           (click)="onEntitySelect(entidad.nit, entidad.nombre)"
+           class="entidad-card">
+        <h3>{{entidad.nombre}}</h3>
+        <!-- Otros detalles de la entidad -->
+      </div>
     </div>
 
     <!-- Botón Ver mi actividad -->

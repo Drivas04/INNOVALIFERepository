@@ -14,7 +14,7 @@ import { LoginService } from '../../../services/login.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [LoginComponent, FooterComponent, HomeheaderComponent, NgClass, CommonModule,FormsModule, ReactiveFormsModule],
+  imports: [ FooterComponent, HomeheaderComponent, CommonModule,FormsModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

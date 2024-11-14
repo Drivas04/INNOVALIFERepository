@@ -1,19 +1,39 @@
-<header class="bg-headfoot max-w-full"> 
-    <nav class="px-4 py-2.5">
-        <div class="flex justify-around items-center mx-auto max-w-screen sm:justify-between">
-            <a href="#" class="flex items-center">              
-                <h1 class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-500 text-5xl font-bold sm:text-4xl">
-                    SIGESME
-                </h1>
-            </a>
-            <div class="flex items-end sm:order-3">
-               <button *ngIf="!isloggedIn && !isLoginPage" routerLink="/auth/login" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Iniciar Sesion</button>    
-               <button *ngIf="isloggedIn" (click)="logOut()" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Cerrar sesion</button>
-               <button *ngIf="isLoginPage" (click)="volver()" class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons">Volver</button>                                   
-            </div>  
-            <div class="">
-                <button *ngIf="isloggedIn && user">{{user.names}}</button>
-            </div>      
-        </div>
-    </nav>
+<header class="bg-headfoot max-w-full">
+  <nav class="px-4 py-2.5">
+    <div
+      class="flex justify-around items-center mx-auto max-w-screen sm:justify-between"
+    >
+      <a href="#" class="flex items-center">
+        <h1
+          class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-teal-500 text-5xl font-bold sm:text-4xl"
+        >
+          SIGESME
+        </h1>
+      </a>
+      <div class="flex sm:order-2">
+        
+        <button *ngIf="!isloggedIn && !isLoginPage"
+          routerLink="/auth/login"
+          class="text-white text-lg font-medium py-3 px-6 rounded-lg bg-butons"
+        >
+          Iniciar Sesion
+        </button>
+         <button *ngIf="isloggedIn && user">{{ user.names }}</button>
+        <button
+          *ngIf="isloggedIn"
+          (click)="logOut()"
+          class="text-white text-lg font-medium py-3 px-6 rounded-full bg-butons"
+        >
+          Cerrar sesion
+        </button>
+        <button
+          *ngIf="isLoginPage"
+          (click)="volver()"
+          class="text-white text-lg font-medium py-3 px-6 rounded-full bg-butons"
+        >
+          Volver
+        </button>
+      </div>
+    </div>
+  </nav>
 </header>

@@ -5,7 +5,7 @@
         <h1 class="text-center ">Inicia Sesion</h1>
     </div>
     <div class="flex flex-col items-center text-4xl mt-7 w-full">      
-        <div class="flex flex-col">
+        <!-- <div class="flex flex-col">
             <div class=" justify-center m-2 rounded-lg ">
                 <button type="button" class="py-2.5 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     <svg class="shrink-0 size-4" width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,8 +23,8 @@
                     </svg>
                     Continuar con Google
                   </button>
-            </div>
-        </div>
+            </div> 
+        </div> -->
         
         <div class="mt-6 ">
             <p class="text-center text-lg">Inicia sesion con tus credenciales</p>
@@ -44,10 +44,10 @@
                 
               
                     <div class="relative">
-                        <input formControlName="password" id="hs-toggle-password" placeholder="Ingresa tu contraseña" type="password" class="py-3 px-4 block w-full font-extralight text-xl text-center mt-3">
+                      <input formControlName="password" id="hs-toggle-password" placeholder="Ingresa tu contraseña" type="password" class="py-3 px-4 block w-full font-extralight text-xl text-center mt-3">
                         <button type="button" data-hs-toggle-password='{
                           "target": "#hs-toggle-password"
-                        }' class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500">
+                        }' class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 ">
                           <svg class="shrink-0 size-3.5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
                             <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
@@ -57,7 +57,7 @@
                             <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"></circle>
                           </svg>
                         </button>
-                      </div>
+                    </div>
                 
 
                 @if (hasErrors('password' , 'required')) {

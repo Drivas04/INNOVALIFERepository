@@ -19,6 +19,7 @@ export class LoginService {
   private tokenKey = 'jwt'
   private apiUrl = `${environment.apiUrl}`
 
+
   constructor(private http: HttpClient, private router: Router, private localStorageS:LocalStorageService) { }
 
   //iniciar sesion y establecer el token en localStorage

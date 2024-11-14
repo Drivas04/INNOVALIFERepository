@@ -12,7 +12,7 @@ export const routes:Routes=
     {path: 'userhome', component: UserhomeComponent},
     {path: 'activity', component: UseractivityComponent},
     {path: 'profile', component: UserprofileComponent},
-    {path: 'services', component: ServicesuseComponent},
+    {path: 'services/:nit', component: ServicesuseComponent},
     {path: 'form' , component: ScheduleappoinmentComponent},
     {path: 'data', component: DataappoinmentComponent},
     {path: 'dataconfirm', component: DataconfirmComponent},

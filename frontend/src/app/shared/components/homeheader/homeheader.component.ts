@@ -1,13 +1,15 @@
-import { NgIf } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { LoginService } from '../../../modules/user/services/login.service';
 import { filter } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from '../../../modules/user/components/auth/login/login.component';
 
 @Component({
   selector: 'app-homeheader',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [ CommonModule, RouterModule],
   templateUrl: './homeheader.component.html',
   styleUrl: './homeheader.component.css'
 })

@@ -4,6 +4,7 @@ import { FooterComponent } from '../../../../../shared/components/footer/footer.
 import { Entidad } from '../../../../../core/models/entidad.interace';
 import { EntidadService } from '../../../services/entidad.service';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,19 +15,30 @@ import { NgFor } from '@angular/common';
   styleUrl: './userhome.component.css'
 })
 export class UserhomeComponent implements OnInit {
+
+  router = inject(Router) 
+  ListEntities: Entidad[] = []
+  entidadS = inject(EntidadService)
+  
   ngOnInit(): void {
     this.getEntities()
   }
-   
-
-  ListEntities: Entidad[] = []
-  entidadS = inject(EntidadService)
-
 
   getEntities(){
     this.entidadS.getListEntities().subscribe(data => {
       this.ListEntities = data;
     })
   }
+  
+  onEntitySelect(nit: string, nombreEntidad: string) {
+    this.router.navigate(['user/services', nit], {
+      queryParams:{nombre: nombreEntidad}
+    })
+      
+    }
 
+  
 }
+
+
+
