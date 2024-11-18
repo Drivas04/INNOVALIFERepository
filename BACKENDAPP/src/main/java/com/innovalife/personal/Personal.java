@@ -33,7 +33,7 @@ public class Personal {
     @Column(name = "cargo", length = 50)
     private String cargo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "NIT_entidad")
     private Entidad nitEntidad;
 
