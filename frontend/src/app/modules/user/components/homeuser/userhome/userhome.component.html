@@ -1,19 +1,46 @@
 <app-homeheader></app-homeheader>
-<div class="flex flex-col items-center h-[80vh] bg-main ">
+<div class="flex flex-col items-center h-screen bg-main ">
 <!-- Contenido principal -->
 <div class="flex flex-col  items-center mt-48 ">
-  <span class="text-center">Escoge la entidad en la que deseas sacar algun turno</span>
+  
     <!-- Campo de búsqueda -->
-    <div class="entidades-container mt-4">
-      <div  *ngFor="let entidad of ListEntities" 
-           (click)="onEntitySelect(entidad.nit, entidad.nombre)"
-           class="entidad-card">
-        <h3>{{entidad.nombre}}</h3>
-        <!-- Otros detalles de la entidad -->
+    <div class="flex items-center mb-4 w-[30vw] sm:w-[80vw]">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        type="text"
+        placeholder="Busca tu entidad"
+        class="px-4 py-2  rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+      />
+      <button class="p-2 bg-butons rounded-lg">
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="">
+      <div
+        *ngFor="let entidad of filteredEntities"
+        (click)="onEntitySelect(entidad.nit, entidad.nombre)"
+        class="entidad-card px-4 py-2 bg-white rounded-lg shadow-lg hover:bg-gray-200 cursor-pointer w-[30vw] sm:w-[80vw] mb-4"
+      >
+        <h3 class="text-center font-bold text-lg">{{ entidad.nombre }}</h3>
       </div>
     </div>
 
-    <!-- Botón Ver mi actividad -->
+    
      
     <button class="mt-32 bg-butons font-extrabold py-2 px-6 rounded-full w-[30vw] sm:w-[80vw]">
       Ver mi actividad

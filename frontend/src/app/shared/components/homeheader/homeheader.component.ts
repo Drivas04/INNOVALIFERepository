@@ -2,7 +2,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { LoginService } from '../../../modules/user/services/login.service';
-import { filter } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../../../modules/user/components/auth/login/login.component';
 
@@ -14,31 +14,35 @@ import { LoginComponent } from '../../../modules/user/components/auth/login/logi
   styleUrl: './homeheader.component.css'
 })
 export class HomeheaderComponent  implements OnInit{
-  
+
+  nombreUsuario: string = '';
+  private subscription!: Subscription;
   loginS = inject(LoginService)
   router = inject(Router)
   isloggedIn = false;
   isLoginPage = false
-  user!:any 
+  user:any 
+  isOpen = false;
  
   ngOnInit(): void {
-
-    this.checkCurrentRoute();
-
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd) // Solo escuchar cuando la navegación ha terminado
-    ).subscribe(() => {
-      this.checkCurrentRoute();
+    this.subscription = this.loginS.usuarioActual$
+    .subscribe(usuario => {
+      this.nombreUsuario = usuario ? usuario.names : '';
     });
-    this.isloggedIn = this.loginS.isLoggedIn();
     
-    this.user = this.loginS.getUser()
+    this.checkCurrentRoute();
+    this.isloggedIn = this.loginS.isLoggedIn();
+
     this.loginS.loginStatusSubjec.asObservable().subscribe(
       data => {
         this.isloggedIn = this.loginS.isLoggedIn()
-        this.user = this.loginS.getUser()
       }
     )
+  }
+
+
+  ngOnDestroy() {
+    this.subscription!.unsubscribe();
   }
   
   public logOut(){
@@ -52,7 +56,17 @@ export class HomeheaderComponent  implements OnInit{
     // Detectar si la URL actual es la página de login o relacionada
     this.isLoginPage = this.router.url.startsWith('/auth/login') || this.router.url.startsWith('/auth/identify');
   }
+  toggleSidebar() {
+    this.isOpen = !this.isOpen;
+  }
  
+  getProfile(){
+    this.router.navigate(['/user/profile'])
+  }
+
+  getActivities(){
+    this.router.navigate(['/user/activity'])
+  }
    
 }
   

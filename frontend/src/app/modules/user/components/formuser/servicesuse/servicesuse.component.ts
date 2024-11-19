@@ -4,11 +4,13 @@ import { ServiciosService } from '../../../services/servicios.service';
 import { Servicio } from '../../../../../core/models/servicio.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../../../../../shared/components/footer/footer.component';
+import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-servicesuse',
   standalone: true,
-  imports: [HomeheaderComponent, CommonModule],
+  imports: [HomeheaderComponent, CommonModule, FooterComponent, SpinnerComponent],
   templateUrl: './servicesuse.component.html',
   styleUrl: './servicesuse.component.css'
 })

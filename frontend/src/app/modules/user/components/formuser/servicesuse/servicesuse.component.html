@@ -1,14 +1,14 @@
 <app-homeheader></app-homeheader>
 
-<div class="servicios-container">
+<div class="flex flex-col items-center h-screen bg-main">
   <button (click)="volverAEntidades()" class="btn-volver">
     Volver a Entidades
   </button>
 
-  <h2>Servicios de {{nombreEntidad}}</h2>
+  <h2>servicios {{nombreEntidad}}</h2>
 
   <div *ngIf="loading" class="loading">
-    Cargando servicios...
+    <app-spinner ></app-spinner>
   </div>
 
   <div *ngIf="error" class="error">
@@ -22,8 +22,10 @@
     </div>
   </div>
 
-  <div *ngIf="!loading && !error && servicios.length === 0" class="no-servicios">
+  <div *ngIf="!loading && !error && servicios.length === 0" class="">
     No hay servicios disponibles para esta entidad
   </div>
 </div>
+
+<app-footer></app-footer>
 

@@ -31,7 +31,8 @@ module.exports = {
       'butons' : '#00abe4',
       'white' : '#ffffff',
       'headfoot':'#e0e7ff',
-      'greeen':'#a1e585'
+      'greeen':'#a1e585',
+      'red' : '#eb4447'
     },
     
   },

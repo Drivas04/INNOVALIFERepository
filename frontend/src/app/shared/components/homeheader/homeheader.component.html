@@ -10,7 +10,7 @@
           SIGESME
         </h1>
       </a>
-      <div class="flex sm:order-2">
+      <div class="flex sm:order-2 gap-3">
         
         <button *ngIf="!isloggedIn && !isLoginPage"
           routerLink="/auth/login"
@@ -18,14 +18,114 @@
         >
           Iniciar Sesion
         </button>
-         <button *ngIf="isloggedIn && user">{{ user.names }}</button>
         <button
           *ngIf="isloggedIn"
-          (click)="logOut()"
+          (click)="toggleSidebar()"
           class="text-white text-lg font-medium py-3 px-6 rounded-full bg-butons"
         >
-          Cerrar sesion
+          {{nombreUsuario}}
         </button>
+        <!-- Navigation Toggle -->
+    
+    <!-- End Navigation Toggle -->
+
+    <!-- Sidebar -->
+    <nav *ngIf="isOpen" class="bg-white shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
+      <a class="font-bold">SIGESME
+      </a>
+
+      <ul class="mt-6">
+        <li>
+          <a routerLink="/home"
+            class="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
+              viewBox="0 0 512 512">
+              <path
+                d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zm160 480h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zm160-74.664h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0"
+                data-original="#000000" />
+            </svg>
+            <span>Pagina principal</span>
+          </a>
+        </li>
+      </ul>
+
+      
+
+      <div class="mt-6">
+        <h6 class="text-blue-600 text-sm font-bold px-4">Citas</h6>
+        <ul class="mt-3">
+          <li>
+            <button
+            (click)="getActivities()"
+             href="javascript:void(0)"
+              class="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all">
+              <svg class="w-[18px] h-[18px] mr-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Edit / Show">
+                <g id="Vector">
+                <path d="M3.5868 13.7788C5.36623 15.5478 8.46953 17.9999 12.0002 17.9999C15.5308 17.9999 18.6335 15.5478 20.413 13.7788C20.8823 13.3123 21.1177 13.0782 21.2671 12.6201C21.3738 12.2933 21.3738 11.7067 21.2671 11.3799C21.1177 10.9218 20.8823 10.6877 20.413 10.2211C18.6335 8.45208 15.5308 6 12.0002 6C8.46953 6 5.36623 8.45208 3.5868 10.2211C3.11714 10.688 2.88229 10.9216 2.7328 11.3799C2.62618 11.7067 2.62618 12.2933 2.7328 12.6201C2.88229 13.0784 3.11714 13.3119 3.5868 13.7788Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </g>
+                </svg>
+              <span>Ver citas</span>
+            </button>
+          </li>
+          <li>
+            <button routerLink="/user"
+              class="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all ">
+              <svg class="w-[18px] h-[18px] mr-4" viewBox="-1.6 -1.6 19.20 19.20" xmlns="http://www.w3.org/2000/svg" fill="#00d0fa" stroke="#00d0fa" transform="rotate(0)matrix(-1, 0, 0, 1, 0, 0)">
+
+                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                
+                <g id="SVGRepo_iconCarrier"> <path d="M6 0L5 .25V1h1zm0 1v1H5V1h-.006c-1.259.014-2.18-.03-2.932.384-.376.208-.675.56-.84.999C1.058 2.821 1 3.343 1 4v8c0 .657.058 1.178.222 1.617.165.439.464.788.84.996.753.415 1.674.372 2.932.387h6.012c1.258-.015 2.178.028 2.931-.387a1.87 1.87 0 0 0 .838-.996c.165-.439.225-.99.225-1.617V4c0-.658-.06-1.179-.225-1.617a1.88 1.88 0 0 0-.838-.998c-.753-.416-1.673-.37-2.931-.385H11v1h-1V1zm4 0h1V0l-1 .25zM5.006 5H11c1.26.014 2.087.06 2.453.261.183.102.289.213.386.473.098.26.16 1.266.16 1.266v5c0 .592-.062 1.005-.16 1.265-.097.26-.203.372-.386.473-.366.202-1.194.247-2.453.262H5c-1.26-.015-2.087-.06-2.454-.262-.183-.101-.289-.213-.386-.473C2.062 13.005 2 12.592 2 12V7c0-.593.062-1.006.16-1.266.097-.26.203-.371.386-.473.367-.202 1.196-.247 2.46-.261z" fill="gray" font-family="sans-serif" font-weight="400" overflow="visible" style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;text-transform:none;isolation:auto;mix-blend-mode:normal;marker:none" white-space="normal" color="#000000"/> </g>
+                
+                </svg>
+              <span >Agendar citas</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-6">
+        <h6 class="text-blue-600 text-sm font-bold px-4">Acciones</h6>
+        <ul class="mt-3">
+          <li>
+            <button
+            (click)="getProfile()"
+             href="javascript:void(0)"
+              class="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
+                viewBox="0 0 512 512">
+                <path
+                  d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0"
+                  data-original="#000000" />
+              </svg>
+              <span>Perfil</span>
+            </button>
+          </li>
+          <li>
+            <button
+            (click)="logOut()"
+             href="javascript:void(0)"
+              class="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
+                viewBox="0 0 6.35 6.35">
+                <path
+                  d="M3.172.53a.265.266 0 0 0-.262.268v2.127a.265.266 0 0 0 .53 0V.798A.265.266 0 0 0 3.172.53zm1.544.532a.265.266 0 0 0-.026 0 .265.266 0 0 0-.147.47c.459.391.749.973.749 1.626 0 1.18-.944 2.131-2.116 2.131A2.12 2.12 0 0 1 1.06 3.16c0-.65.286-1.228.74-1.62a.265.266 0 1 0-.344-.404A2.667 2.667 0 0 0 .53 3.158a2.66 2.66 0 0 0 2.647 2.663 2.657 2.657 0 0 0 2.645-2.663c0-.812-.363-1.542-.936-2.03a.265.266 0 0 0-.17-.066z"
+                  data-original="#eb4447" />
+              </svg>
+              <span class="text-red">Cerrar sesion</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+    <!-- End Sidebar -->
+
+
         <button
           *ngIf="isLoginPage"
           (click)="volver()"

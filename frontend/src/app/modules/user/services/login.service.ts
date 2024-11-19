@@ -2,27 +2,42 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.interface';
-import { Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Login } from '../../../core/models/login.interface';
-import { ResponseAcceso } from '../../../core/models/responseAccess.interface';
-import { response } from 'express';
+
 import { LocalStorageService } from './localstorage.service';
+import { currentUser } from '../../../core/models/currentuser.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+
   public loginStatusSubjec = new Subject<boolean>();
+  private usuarioActualSubject = new BehaviorSubject<any>(null);
+  usuarioActual$ = this.usuarioActualSubject.asObservable();
+ 
   
-  private userKey = 'user'
+  
+  private userKey = 'usuario'
   private tokenKey = 'jwt'
   private apiUrl = `${environment.apiUrl}`
 
 
-  constructor(private http: HttpClient, private router: Router, private localStorageS:LocalStorageService) { }
+  constructor(private http: HttpClient, private router: Router, private localStorageS:LocalStorageService) {
+    const usuarioAlmacenado = localStorage.getItem(this.userKey);
+    if (usuarioAlmacenado) {
+      this.usuarioActualSubject.next(JSON.parse(usuarioAlmacenado));
+    }
+   }
 
   //iniciar sesion y establecer el token en localStorage
+  setUsuarioActual(usuario: any) {
+    
+    localStorage.setItem(this.userKey, JSON.stringify(usuario));
+    this.usuarioActualSubject.next(usuario);
+  }
  
   public loginUser(user: Login): Observable<Login>{
     return this.http.post<Login>(`${this.apiUrl}/auth/login`, user)
@@ -33,7 +48,7 @@ export class LoginService {
    }
 
    getCurrentUser(){
-    return this.http.get(`${this.apiUrl}/auth/usuario-actual`)
+    return this.http.get<currentUser>(`${this.apiUrl}/auth/usuario-actual`)
    }
 
   public setToken(token: string){
@@ -50,6 +65,7 @@ export class LoginService {
     }else{
       return true
     }
+    
   
   }
 
@@ -68,20 +84,13 @@ export class LoginService {
   }
   //dar usuario al localStorage
   public setUser(user: any){
-    return this.localStorageS.set('user', JSON.stringify(user));
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+    return true
   }
 
   //dar el usuario
-  getUser() {
-    if(this.userKey != null){
-      return JSON.parse(this.localStorageS.get(this.userKey)!)
-    }else{
-      this.logOut()
-      return null
-    }
-      // Aquí puedes acceder de manera segura al localStorage
-      // Manejar el caso cuando no se encuentra el localStorage
-    
+  getUser() {   
+    return JSON.parse(localStorage.getItem(this.userKey)!) 
   }
 
   

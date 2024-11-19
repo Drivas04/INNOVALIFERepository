@@ -9,6 +9,7 @@ import { LoginService } from '../../../services/login.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { UserService } from '../../../services/user.service';
 import { error } from 'console';
+import { currentUser } from '../../../../../core/models/currentuser.interface';
 
 
 
@@ -67,8 +68,8 @@ export class LoginComponent implements OnInit {
           this.snackBars.showSnackBar("Bienvenido¡¡", "OK")
         }
         this.loginS.getCurrentUser().subscribe({
-          next: (user: any) => {
-            this.loginS.setUser(user)     
+          next: (user: currentUser) => {
+            this.loginS.setUsuarioActual(user)   
           }
         })
        
@@ -80,7 +81,7 @@ export class LoginComponent implements OnInit {
       
     })
     
-    
+   
     
     
   }
