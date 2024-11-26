@@ -29,13 +29,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                //.authorizeHttpRequests(request-> request.requestMatchers("/", "/auth/**").permitAll())
                 .sessionManagement(sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .oauth2Login(Customizer.withDefaults())
-//                .oauth2Client(Customizer.withDefaults())
             .build();
             
             

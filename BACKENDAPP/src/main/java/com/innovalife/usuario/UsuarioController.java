@@ -26,7 +26,7 @@ public class UsuarioController {
     private MailService mailService;
 
 
-    @PutMapping(value = "olvidoClave")
+    @PutMapping(value = "olvido-clave")
     public ResponseEntity<String> olvidoClave(@RequestParam String email) {
         Usuario usuario = userRepository.findByEmail(email)
                 .orElseThrow(()->new RuntimeException("Usuario no encontrado"));

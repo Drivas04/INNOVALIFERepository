@@ -1,12 +1,11 @@
 package com.innovalife.cita;
 
 import com.innovalife.mail.MailService;
-import com.innovalife.mail.MailStructure;
 import com.innovalife.servicio.Servicio;
-import com.innovalife.servicio.ServicioRepository;
 import com.innovalife.usuario.UserRepository;
 import com.innovalife.utils.Propiedades;
 import com.innovalife.utils.ResourceNotFoundException;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.*;
 
@@ -34,19 +32,17 @@ public class CitaController {
     @Autowired
     private MailService mailService;
 
-    MailStructure mailStructure = new MailStructure();
-
     Propiedades propiedades = new Propiedades();
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping(value="listaCitas")
+    @GetMapping(value="lista-citas")
     public List<Cita> getAll(){
         return citaRepository.findAll();
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "misCitas")
-    public List<Cita> getMisCitas() throws ResourceNotFoundException {
+    @GetMapping(value = "mis-citas")
+    public List<Cita> getMyInfo() throws ResourceNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -67,22 +63,20 @@ public class CitaController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/agendarCita")
-    public ResponseEntity<Cita> save(@RequestBody Cita cita){
+    @PostMapping("/agendar-cita")
+    public ResponseEntity<Cita> save(@RequestBody Cita cita) throws MessagingException {
         if(citaRepository.existsById(cita.getId())){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         Cita nuevaCita = citaRepository.save(cita);
         Servicio servicio = nuevaCita.getIdServicio();
-        mailStructure.setSubject(propiedades.getProperty("ASUNTO_NUEVA_CITA"));
-        mailStructure.setBody("Tu cita de "+servicio.getNombre()+" ha sido agendada para el "+cita.getFechaCita()+".\n¡No faltes! ");
-        mailService.sendMail(nuevaCita.getUsernameUsuario().getEmail(), mailStructure);
+        mailService.sendAssignementMail(nuevaCita.getUsernameUsuario().getEmail(), nuevaCita.getUsernameUsuario().getNames(), servicio.getNombre(), cita.getFechaCita().toString());
         return ResponseEntity.status(HttpStatus.OK).body(nuevaCita);
     }
 
-    @PreAuthorize("isAuthenticated() or hasAuthority('ADMIN')")
-    @PutMapping("/actualizarCita/{id}")
-    public ResponseEntity<Cita> updateById(@PathVariable Integer id, @RequestBody Cita cita){
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/actualizar-cita/{id}")
+    public ResponseEntity<Cita> updateById(@PathVariable Integer id, @RequestBody Cita cita) throws MessagingException {
         Cita actual = citaRepository.getById(id);
         if(!citaRepository.existsById(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -92,25 +86,17 @@ public class CitaController {
         cita.setFechaCita(cita.getFechaCita());
         cita.setDescripcion(cita.getDescripcion());
 
-        Cita nuevaCita = citaRepository.save(cita);
-
-        String emailUsuario = actual.getUsernameUsuario().getEmail();
-
-        System.out.println(emailUsuario);
-
         Servicio servicio = actual.getIdServicio();
-
-        mailStructure.setSubject(propiedades.getProperty("ASUNTO_EDICION_CITA"));
-        mailStructure.setBody("Su cita de "+servicio.getNombre()+" ha sido actualizada.\nFecha: "+cita.getFechaCita()+"\nEstado: "+cita.getEstado()+"\nDescripcion: "+cita.getDescripcion());
-
-        mailService.sendMail(emailUsuario, mailStructure);
+        String emailUsuario = actual.getUsernameUsuario().getEmail();
+        Cita nuevaCita = citaRepository.save(cita);
+        mailService.sendUpdateMail(emailUsuario, actual.getUsernameUsuario().getNames(), servicio.getNombre(), actual.getFechaCita().toString(), nuevaCita.getIdServicio().getNombre(), nuevaCita.getFechaCita().toString());
 
         return new ResponseEntity<>(nuevaCita, HttpStatus.OK);
 
     }
 
     @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
-    @DeleteMapping("/eliminarCita/{id}")
+    @DeleteMapping("/eliminar-cita/{id}")
     public ResponseEntity<Cita> deleteById(@PathVariable Integer id){
         if(!citaRepository.existsById(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

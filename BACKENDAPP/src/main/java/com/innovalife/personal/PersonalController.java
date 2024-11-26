@@ -18,14 +18,14 @@ public class PersonalController {
     private final PersonalRepository personalRepository;
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "listaPersonal")
-    public List<Personal> getALlPersonal() {
+    @GetMapping(value = "lista-personal")
+    public List<Personal> getALl() {
         return personalRepository.findAll();
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "funcionario/{cedula}")
-    public ResponseEntity<Personal> getPersonal(@PathVariable String cedula) {
+    public ResponseEntity<Personal> getByid(@PathVariable String cedula) {
         if (!personalRepository.existsById(cedula)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -34,8 +34,8 @@ public class PersonalController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping(value = "registrarFuncionario")
-    public ResponseEntity<Personal> registrarFuncionario(@RequestBody Personal personal) {
+    @PostMapping(value = "registrar-funcionario")
+    public ResponseEntity<Personal> save(@RequestBody Personal personal) {
         if(personalRepository.existsById(personal.getCedula())){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -44,8 +44,8 @@ public class PersonalController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping(value = "actualizarFuncionario/{cedula}")
-    public ResponseEntity<Personal> actualizarFuncionario(@PathVariable String cedula, @RequestBody Personal personal) {
+    @PutMapping(value = "actualizar-funcionario/{cedula}")
+    public ResponseEntity<Personal> updateById(@PathVariable String cedula, @RequestBody Personal personal) {
         if (!personalRepository.existsById(cedula)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -55,8 +55,8 @@ public class PersonalController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping(value = "eliminarFuncionario/{cedula}")
-    public ResponseEntity<Personal> eliminarFuncionario(@PathVariable String cedula) {
+    @DeleteMapping(value = "eliminar-funcionario/{cedula}")
+    public ResponseEntity<Personal> deleteById(@PathVariable String cedula) {
         if (!personalRepository.existsById(cedula)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

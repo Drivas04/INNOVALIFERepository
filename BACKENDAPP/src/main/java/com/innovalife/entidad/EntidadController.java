@@ -35,8 +35,8 @@ public class EntidadController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') and isAuthenticated()")
-    @PutMapping(value = "editarDatos/{NIT}")
-    public ResponseEntity<Entidad> editarDatos(@PathVariable String NIT, @RequestBody Entidad nuevo){
+    @PutMapping(value = "editar-datos/{NIT}")
+    public ResponseEntity<Entidad> updateById(@PathVariable String NIT, @RequestBody Entidad nuevo){
         if(!entidadRepository.existsById(NIT)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
