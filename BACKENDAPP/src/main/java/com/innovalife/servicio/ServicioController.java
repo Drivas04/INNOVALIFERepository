@@ -19,8 +19,8 @@ public class ServicioController {
     private ServicioRepository servicioRepository;
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping(value="listaServicios")
-    public List<Servicio> listaServicios() {
+    @GetMapping(value="lista-servicios")
+    public List<Servicio> getAll() {
         return servicioRepository.findAll();
     }
 
@@ -35,8 +35,8 @@ public class ServicioController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') AND isAuthenticated()")
-    @PostMapping(value="agregarServicio")
-    public ResponseEntity<Servicio> agregarServicio(@RequestBody Servicio servicio) {
+    @PostMapping(value="agregar-servicio")
+    public ResponseEntity<Servicio> save(@RequestBody Servicio servicio) {
         if (servicioRepository.existsById(servicio.getId())) {
             return ResponseEntity.badRequest().build();
         }
@@ -45,7 +45,7 @@ public class ServicioController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') AND isAuthenticated()")
-    @PutMapping(value="editarServicio/{id}")
+    @PutMapping(value="editar-servicio/{id}")
     public ResponseEntity<Servicio> updateById(@PathVariable Integer id, @RequestBody Servicio servicio) {
         Servicio servicioEditado = servicioRepository.findById(id).orElse(null);
         if (servicioEditado == null) {
@@ -58,7 +58,7 @@ public class ServicioController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') AND isAuthenticated()")
-    @DeleteMapping(value="eliminarServicio/{id}")
+    @DeleteMapping(value="eliminar-servicio/{id}")
     public ResponseEntity<Servicio> deleteById(@PathVariable Integer id) {
         Servicio servicio = servicioRepository.findById(id).orElse(null);
         if (servicio == null) {
