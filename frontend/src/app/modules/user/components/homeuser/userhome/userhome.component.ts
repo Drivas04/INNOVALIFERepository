@@ -3,7 +3,7 @@ import { HomeheaderComponent } from '../../../../../shared/components/homeheader
 import { FooterComponent } from '../../../../../shared/components/footer/footer.component';
 import { Entidad } from '../../../../../core/models/entidad.interace';
 import { EntidadService } from '../../../services/entidad.service';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-userhome',
   standalone: true,
-  imports: [HomeheaderComponent, FooterComponent,NgFor, FormsModule],
+  imports: [HomeheaderComponent, FooterComponent,NgFor, FormsModule, CommonModule],
   templateUrl: './userhome.component.html',
   styleUrl: './userhome.component.css'
 })

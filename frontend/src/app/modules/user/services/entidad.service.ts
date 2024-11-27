@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Entidad } from '../../../core/models/entidad.interace';
+import { Personal } from '../../../core/models/personal.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,13 @@ export class EntidadService {
 
   getListEntities(): Observable<Entidad[]>{
     return this.http.get<Entidad[]>(`${this.apiUrl}/entidad/lista-entidades`, )
+  }
+
+  getPersonalPorNit(nit: string): Observable<Personal[]> {
+    return this.http.get<Personal[]>(`${this.apiUrl}/listaPersonal`)
+      .pipe(
+        map(personal => personal.filter(p => p.nitEntidad.nit === nit))
+      );
   }
 
   

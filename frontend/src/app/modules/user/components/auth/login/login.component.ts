@@ -10,6 +10,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { UserService } from '../../../services/user.service';
 import { error } from 'console';
 import { currentUser } from '../../../../../core/models/currentuser.interface';
+import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
 
 
 
@@ -18,7 +19,7 @@ import { currentUser } from '../../../../../core/models/currentuser.interface';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HomeheaderComponent, FooterComponent, ReactiveFormsModule, RouterLink, CommonModule,  FormsModule],
+  imports: [HomeheaderComponent, FooterComponent, ReactiveFormsModule, RouterLink, CommonModule,  FormsModule, SpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
   fb = inject(FormBuilder);
   loginS = inject(LoginService)
   router = inject(Router)
-  
+  loading: boolean = false
+
   formLogin: FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
     password: ['', Validators.required]
@@ -51,6 +53,7 @@ export class LoginComponent implements OnInit {
   
   
   userLogin(){
+    this.loading = true
     if(this.formLogin.invalid) return;
     
     const objeto:Login = {
@@ -63,6 +66,7 @@ export class LoginComponent implements OnInit {
       next: (data: any) =>{
         const token = data.token
         if(data.token) {
+          this.loading = false
           this.loginS.setToken(token); 
           this.router.navigate(['/user/userhome'])
           this.snackBars.showSnackBar("Bienvenido¡¡", "OK")
@@ -75,8 +79,8 @@ export class LoginComponent implements OnInit {
        
       },     
       error: (err) => {   
+        this.loading= false
         this.snackBars.showSnackBar(err.message, "OK")
-        
       },
       
     })

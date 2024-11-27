@@ -57,6 +57,10 @@ export class ServicesuseComponent implements OnInit{
   volverAEntidades() {
     this.router.navigate(['/user/userhome']);
   }
+
+  onServiceSelect(servicioId: number) {
+    this.router.navigate(['user/form', servicioId])
+  }
 }
 
 

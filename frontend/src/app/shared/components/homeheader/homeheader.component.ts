@@ -23,6 +23,8 @@ export class HomeheaderComponent  implements OnInit{
   isLoginPage = false
   user:any 
   isOpen = false;
+  
+
  
   ngOnInit(): void {
     this.subscription = this.loginS.usuarioActual$

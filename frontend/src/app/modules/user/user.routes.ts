@@ -13,7 +13,7 @@ export const routes:Routes=
     {path: 'activity', component: UseractivityComponent},
     {path: 'profile', component: UserprofileComponent},
     {path: 'services/:nit', component: ServicesuseComponent},
-    {path: 'form' , component: ScheduleappoinmentComponent},
+    {path: 'form/:id' , component: ScheduleappoinmentComponent},
     {path: 'data', component: DataappoinmentComponent},
     {path: 'dataconfirm', component: DataconfirmComponent},
     {path: '**', redirectTo: '/user/userhome'}

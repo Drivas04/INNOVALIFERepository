@@ -1,0 +1,33 @@
+.personal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .personal-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .personal-card:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .personal-card.selected {
+    border-color: #007bff;
+    background-color: #e6f2ff;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+  }
+  
+  .form-section {
+    margin-bottom: 30px;
+  }

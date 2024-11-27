@@ -30,7 +30,7 @@
       </button>
     </div>
 
-    <div class="">
+    <div *ngIf="ListEntities.length > 0" class="">
       <div
         *ngFor="let entidad of filteredEntities"
         (click)="onEntitySelect(entidad.nit, entidad.nombre)"
@@ -39,6 +39,8 @@
         <h3 class="text-center font-bold text-lg">{{ entidad.nombre }}</h3>
       </div>
     </div>
+    <div *ngIf="ListEntities.length == 0"> No hay entidades disponibles</div>
+    
 
     
      
