@@ -16,9 +16,15 @@
   </div>
 
   <div *ngIf="!loading && !error" class="servicios-grid">
-    <div *ngFor="let servicio of servicios"  class="servicio-card cursor-pointer" (click)="onServiceSelect(servicio.id)">
+    <div *ngFor="let servicio of servicios"  class="servicio-card cursor-pointer" (click)="onServiceSelect(servicio.nitEntidad.nit, servicio.nitEntidad.nombre)">
       <h3>{{servicio.nombre}}</h3>
       <p>{{servicio.descripcion}}</p>
+    </div>
+  </div>
+  <div *ngIf="!loading && !error" class="servicios-grid">
+    <div *ngFor="let personal of personalDisponible"  class="servicio-card cursor-pointer" >
+      <h3>{{personal.nombres}}</h3>
+      <p>{{personal.cargo}}</p>
     </div>
   </div>
 

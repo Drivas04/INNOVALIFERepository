@@ -3,7 +3,7 @@ import { HomeheaderComponent } from '../../../../../shared/components/homeheader
 import { FooterComponent } from '../../../../../shared/components/footer/footer.component';
 import { Personal } from '../../../../../core/models/personal.interface';
 import { EntidadService } from '../../../services/entidad.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -15,32 +15,44 @@ import { CommonModule } from '@angular/common';
   styleUrl: './scheduleappoinment.component.css'
 })
 export class ScheduleappoinmentComponent implements OnInit {
-  servicioId!: number
-  nitEntidad!: string;
+  
+  nombreEntidad: string = ''
   personalDisponible: Personal[] = [];
+  
 
-
-  constructor(private route: ActivatedRoute, private entidadS: EntidadService){}
+  constructor(private route: ActivatedRoute, private entidadS: EntidadService,private router: Router){}
   
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.nitEntidad = params['nit']
-    })
-    this.servicioId = +this.route.snapshot.paramMap.get('id')!
-    this.cargarPersonal()
-  }
+    this.route.params.subscribe(params => {
+      const nit = params['nit'];
+      this.route.queryParams.subscribe(
+        queryParams => {
+          this.nombreEntidad = queryParams['nombre']
+        }
+      )
+      this.cargarPersonal(nit)
+    });
+   
+  } 
 
-  cargarPersonal(){
-    this.entidadS.getPersonalPorNit(this.nitEntidad).subscribe({
+
+  cargarPersonal(nit: string){
+    this.entidadS.getPersonalPorNit(nit).subscribe({
       next: (personal) => {
         this.personalDisponible = personal
       },
       error: (err) => {
-        console.error('Error', err)
+        console.log(err)
       }
+      
     })
   }
+
+  volverServicios() {
+    this.router.navigate([`/user/services/`]);
+  }
+}
+  
   
 
 
-}

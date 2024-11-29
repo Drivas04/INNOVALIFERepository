@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../../../shared/components/footer/footer.component';
 import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
+import { EntidadService } from '../../../services/entidad.service';
+import { Personal } from '../../../../../core/models/personal.interface';
 
 @Component({
   selector: 'app-servicesuse',
@@ -19,11 +21,14 @@ export class ServicesuseComponent implements OnInit{
   nombreEntidad: string = '';
   loading: boolean = true;
   error: string = '';
+  personalDisponible: Personal[] = []
+
 
   constructor(
     private route: ActivatedRoute,
     private serviciosService: ServiciosService,
-    private router: Router
+    private router: Router,
+    private personalS: EntidadService
   ) {}
 
   ngOnInit() {
@@ -35,6 +40,7 @@ export class ServicesuseComponent implements OnInit{
         }
       )
       this.cargarServicios(nit);
+     
     });
   }
 
@@ -58,9 +64,13 @@ export class ServicesuseComponent implements OnInit{
     this.router.navigate(['/user/userhome']);
   }
 
-  onServiceSelect(servicioId: number) {
-    this.router.navigate(['user/form', servicioId])
+  onServiceSelect(nit: string, nombreEntidad: string) {
+    this.router.navigate(['user/form', nit], {
+      queryParams:{nombre: nombreEntidad}
+    })
   }
+
+  
 }
 
 

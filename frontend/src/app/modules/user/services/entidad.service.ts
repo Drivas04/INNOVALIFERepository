@@ -23,9 +23,9 @@ export class EntidadService {
   }
 
   getPersonalPorNit(nit: string): Observable<Personal[]> {
-    return this.http.get<Personal[]>(`${this.apiUrl}/listaPersonal`)
+    return this.http.get<Personal[]>(`${this.apiUrl}/personal/lista-personal`)
       .pipe(
-        map(personal => personal.filter(p => p.nitEntidad.nit === nit))
+        map(personal => personal.filter(p => p.nitEntidad.nit === nit ))
       );
   }
 

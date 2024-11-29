@@ -16,7 +16,7 @@ export class ServiciosService {
 
   
   getAllServices(nit: string): Observable<Servicio[]> {
-    return this.http.get<Servicio[]>(`${this.apiUrl}/servicios/listaServicios`).pipe(
+    return this.http.get<Servicio[]>(`${this.apiUrl}/servicios/lista-servicios`).pipe(
       map(servicios => servicios.filter(servicio => servicio.nitEntidad.nit === nit))
     )
   }
