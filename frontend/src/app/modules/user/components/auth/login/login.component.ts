@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           this.loading = false
           this.loginS.setToken(token); 
           this.router.navigate(['/user/userhome'])
-          this.snackBars.showSnackBar("Bienvenido¡¡", "OK")
+          this.snackBars.showSnackBar("Bienvenido !", "OK")
         }
         this.loginS.getCurrentUser().subscribe({
           next: (user: currentUser) => {

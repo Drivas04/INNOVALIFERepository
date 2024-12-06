@@ -38,6 +38,15 @@ export class LoginService {
     localStorage.setItem(this.userKey, JSON.stringify(usuario));
     this.usuarioActualSubject.next(usuario);
   }
+
+  getUsuarioActual(): any {
+    return this.usuarioActualSubject.value;
+  }
+
+  clearUsuarioActual() {
+    localStorage.removeItem(this.userKey);
+    this.usuarioActualSubject.next(null);
+  }
  
   public loginUser(user: Login): Observable<Login>{
     return this.http.post<Login>(`${this.apiUrl}/auth/login`, user)

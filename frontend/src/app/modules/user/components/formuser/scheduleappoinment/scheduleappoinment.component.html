@@ -1,7 +1,7 @@
 <app-homeheader></app-homeheader>
 
 
-<div class="flex justify-center items-center h-[90vh] bg-main">
+<div *ngIf="!loading" class="flex justify-center items-center h-[90vh] bg-main">
     <div class="bg-main rounded-lg shadow-md p-6 w-full max-w-md">
       <!-- Título e ícono de entidad -->
       <div class="flex items-center gap-2 mb-4">
@@ -14,53 +14,63 @@
   
       <!-- Línea separadora -->
       <div class="border-b-2 border-butons mb-4"></div>
-  
-      <!-- Título principal -->
-       <h2 class="text-2xl font-bold text-center mb-4">Personal disponible</h2>
-       <div *ngIf="personalDisponible.length > 0" class="">
-        <div
-          *ngFor="let personal of personalDisponible"
-          
-          class="entidad-card px-4 py-2 bg-white rounded-lg shadow-lg hover:bg-gray-200 cursor-pointer  sm:w-[80vw] mb-4"
-        >
-          <span class="text-center font-bold text-lg">{{personal.nombres}} {{personal.apellidos}} - {{personal.cargo}}</span>
-        </div>
-      </div>
-      <div class="text-center" *ngIf="personalDisponible.length === 0"> No hay personal disponible</div>
+      <form (ngSubmit)="agendarCita()">
 
+      
+      <!-- Título principal -->
+       <div> 
+       <label for="personal" class="text-2xl font-bold text-center mb-4">Personal disponible</label>
+       <div *ngIf="personalDisponible.length > 0" >
+        <select
+        id="personal"
+        [(ngModel)]="selectedPersonal"
+        name="personal"
+        required
+      >
+        <option *ngFor="let personal of personalDisponible" [ngValue]="personal">
+          {{ personal.nombres }}
+        </option>
+      </select>
+      </div>
+      <div class="text-center" *ngIf="  personalDisponible.length === 0"> No hay personal disponible</div>
+    </div>
       <h3 class="text-2xl font-bold text-center mb-4">Horario de turnos</h3>
   
       <!-- Calendario (Placeholder) -->
       <div class="flex justify-center mb-6">
         <!-- Aquí puedes insertar el calendario de tu preferencia -->
-        <input type="date" class="border rounded p-2 text-center">
+        <input class="border rounded p-2 text-center" type="date" id="fechaCita" [(ngModel)]="fechaCita" name="fechaCita" required >
       </div>
   
       <!-- Horas disponibles -->
       <h3 class="text-xl font-bold text-center mb-4">Horas disponibles</h3>
+      <!-- Horas disponibles de acuerdo a la fecha escogida 
       <div class="flex flex-wrap justify-center gap-2 mb-6">
-        <!-- Horas disponibles de acuerdo a la fecha escogida -->
         <button class="bg-greeen text-green-700 px-3 py-1 rounded-full">8:00 a.m</button>
         <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">9:00 a.m</span>
         <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">10:00 a.m</span>
         <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">11:00 a.m</span>
         <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">12:00 p.m</span>
         <span class="bg-greeen text-green-700 px-3 py-1 rounded-full">2:00 p.m</span>
+      </div> -->
+      <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" [(ngModel)]="description" name="descripcion" required></textarea>
       </div>
-
   
       <!-- Botón "Agendar" -->
       <div class="flex justify-center">
-        <button class="bg-butons text-white px-6 py-2 rounded-full hover:bg-blue-600">
+        <button type="submit" class="bg-butons text-white px-6 py-2 rounded-full hover:bg-blue-600" >
           Agendar
         </button>
       </div>
+    </form>
    </div>
 </div>
 
    
       
 
-
+<app-spinner *ngIf="loading"></app-spinner>
   
 <app-footer></app-footer>

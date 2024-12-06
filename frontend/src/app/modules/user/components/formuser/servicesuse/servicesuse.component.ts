@@ -8,6 +8,7 @@ import { FooterComponent } from '../../../../../shared/components/footer/footer.
 import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
 import { EntidadService } from '../../../services/entidad.service';
 import { Personal } from '../../../../../core/models/personal.interface';
+import { CitaService } from '../../../services/cita.service';
 
 @Component({
   selector: 'app-servicesuse',
@@ -28,7 +29,8 @@ export class ServicesuseComponent implements OnInit{
     private route: ActivatedRoute,
     private serviciosService: ServiciosService,
     private router: Router,
-    private personalS: EntidadService
+    private personalS: EntidadService,
+    private citaS: CitaService
   ) {}
 
   ngOnInit() {
@@ -64,9 +66,10 @@ export class ServicesuseComponent implements OnInit{
     this.router.navigate(['/user/userhome']);
   }
 
-  onServiceSelect(nit: string, nombreEntidad: string) {
-    this.router.navigate(['user/form', nit], {
-      queryParams:{nombre: nombreEntidad}
+  onServiceSelect(nit: string, nitService: number, nombreEntidad: string) {
+    this.citaS.setCitaData({idServicio: {id: nitService}})
+    this.router.navigate(['user/agendar-cita', nit], {
+      queryParams:{nombre: nombreEntidad, id: nitService}
     })
   }
 
