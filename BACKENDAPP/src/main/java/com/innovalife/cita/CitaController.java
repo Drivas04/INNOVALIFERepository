@@ -8,6 +8,9 @@ import com.innovalife.utils.ResourceNotFoundException;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,28 +39,28 @@ public class CitaController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping(value="lista-citas")
-    public List<Cita> getAll(){
-        return citaRepository.findAll();
+    public Page<Cita> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return citaRepository.findAll(pageable);
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "mis-citas")
-    public List<Cita> getMyInfo() throws ResourceNotFoundException {
+    public Page<Cita> getMyInfo(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws ResourceNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
         if (!userRepository.existsById(username)) {
             throw new ResourceNotFoundException("Usuario no registrado en el sistema");
         }
-
-        return citaRepository.findByUsernameUsuario_Username(username);
+        Pageable pageable = PageRequest.of(page, size);
+        return citaRepository.findByUsernameUsuario_Username(username, pageable);
     }
 
     @PreAuthorize("isAuthenticated() or hasAuthority('ADMIN')")
     @GetMapping("/cita/{id}")
     public ResponseEntity<Cita> getById(@PathVariable Integer id) throws ResourceNotFoundException {
         if(!citaRepository.existsById(id)){
-            new ResourceNotFoundException("Usuario no encontrado");
+           throw new ResourceNotFoundException("Usuario no encontrado");
         }
         return ResponseEntity.ok(citaRepository.getById(id));
     }
