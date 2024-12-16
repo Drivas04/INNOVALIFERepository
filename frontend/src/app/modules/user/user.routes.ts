@@ -10,7 +10,7 @@ import { UserprofileComponent } from './components/profile/userprofile/userprofi
 export const routes:Routes=
 [ 
     {path: 'userhome', component: UserhomeComponent},
-    {path: 'activity', component: UseractivityComponent},
+    {path: 'mis-citas', component: UseractivityComponent},
     {path: 'profile', component: UserprofileComponent},
     {path: 'services/:nit', component: ServicesuseComponent},
     {path: 'agendar-cita/:nit' , component: ScheduleappoinmentComponent},

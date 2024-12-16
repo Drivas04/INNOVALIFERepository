@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
+import { Cita } from '../../../core/models/cita.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,18 +20,21 @@ export class CitaService {
   setCitaData(data: any) {
     this.citaData = { ...this.citaData, ...data}
   }
-
-  getCitaData(): any {
-    return this.citaData
+  
+  
+  obtenerMisCitas(): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/citas/mis-citas`);
   }
 
-  clearCitaData() : void {
-    this.citaData = {}
-  }
-
+  
   agendarCita(citaPayload: any) {
     return this.http.post(`${this.apiUrl}/citas/agendar-cita`, citaPayload , {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+  
+  
+
 }
+
+

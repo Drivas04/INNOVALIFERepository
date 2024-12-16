@@ -3,7 +3,7 @@ import { HomeheaderComponent } from '../../../../../shared/components/homeheader
 import { FooterComponent } from '../../../../../shared/components/footer/footer.component';
 import { Personal } from '../../../../../core/models/personal.interface';
 import { EntidadService } from '../../../services/entidad.service';
-
+import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { CitaService } from '../../../services/cita.service';
@@ -74,8 +74,8 @@ export class ScheduleappoinmentComponent implements OnInit {
   }
 
   agendarCita(): void {
-    this.loading = true;
-    if (!this.selectedPersonal || !this.fechaCita || !this.description) {
+    this.loading = false;
+    if (!this.selectedPersonal || !this.fechaCita ) {
       console.error('Por favor completa todos los campos antes de continuar.');
       return;
     }
@@ -92,9 +92,10 @@ export class ScheduleappoinmentComponent implements OnInit {
       const year = date.getFullYear();
       return `${day}-${month}-${year}`;
     };
+
     
     const citaPayload = {
-      id: 0, 
+  id: 0,
   fechaRegistro: formatFecha(new Date().toISOString()), 
   fechaCita: formatFecha(this.fechaCita),
   estado: 'activa',
@@ -104,29 +105,50 @@ export class ScheduleappoinmentComponent implements OnInit {
     id: Number(this.idServicio) ,
   },
   cedulaPersonaEncargada: {
-    cedula: this.selectedPersonal.cedula , // Valor predeterminado
+    cedula: this.selectedPersonal.cedula , 
+   
   },
   };
       
-    
-    
-
-    
-    this.citaS.agendarCita(citaPayload).subscribe({
-      
-      next: (response) => {
-        this.loading = false;
-        this._snackbar.showSnackBar("Cita agendada con exito, revisa tu correo electronico con la informacion de la cita", "OK")
-        this.router.navigate(['user/activity'])
-      },
-      error: (err) => {
-        console.log('Error', err)
-        this.loading = false;
-        this._snackbar.showSnackBar("Ocurrio un error al agendar la cita, vuelve a intentarlo", "OK")
-
-      }
-    })
-    
+  
+  Swal.fire({
+    title: "Estas a punto de agendar una cita",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Agendar",
+    denyButtonText: `No Agendar`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Mostrar el indicador de carga
+     
+      this.loading = true
+      this.citaS.agendarCita(citaPayload).subscribe({
+        next: (response) => {
+          this.loading = true
+          console.log(response);
+          this._snackbar.showSnackBar(
+            "Cita agendada con exito, revisa tu correo electronico con la informacion de la cita",
+            "OK"
+          );
+          
+          this.router.navigate(["user/mis-citas"]);
+  
+          // Mostrar alerta de éxito
+          Swal.fire("Cita Agendada con exito, revisa tu correo para mas informacion", "", "success");
+        },
+        error: (err) => {
+          console.error("Error", err);
+          this._snackbar.showSnackBar(
+            "Ocurrio un error al agendar la cita, vuelve a intentarlo",
+            "OK"
+          );
+        }
+      });
+    } else if (result.isDenied) {
+      Swal.fire("Decidiste no agendar la cita", "", "info");
+      this.router.navigate(['/user'])
+    }
+  });       
   }
 }
   

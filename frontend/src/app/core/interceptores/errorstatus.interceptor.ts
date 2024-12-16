@@ -1,4 +1,4 @@
-// register.interceptor.ts
+// errorStatus.interceptor.ts
 
 
 import {  HttpErrorResponse, HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';

@@ -20,6 +20,7 @@ export class AppComponent {
   
   constructor(private router: Router){}
  
+  //Actualizaion de la pagina para que se cargen los componentes de Preline.
   ngOnInit() {
     if (typeof window !== 'undefined') {
       this.router.events.subscribe((event: Event) => {

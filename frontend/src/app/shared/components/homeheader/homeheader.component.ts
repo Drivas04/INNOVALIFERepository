@@ -1,10 +1,10 @@
 
 import { Component, inject, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import {  Router, RouterModule } from '@angular/router';
 import { LoginService } from '../../../modules/user/services/login.service';
-import { filter, Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../../../modules/user/components/auth/login/login.component';
+
 
 @Component({
   selector: 'app-homeheader',
@@ -25,7 +25,7 @@ export class HomeheaderComponent  implements OnInit{
   isOpen = false;
   
 
- 
+ //Por medio del BehaviorSubject se suscribe al usuario actual y trae el nombre
   ngOnInit(): void {
     this.subscription = this.loginS.usuarioActual$
     .subscribe(usuario => {
@@ -60,6 +60,7 @@ export class HomeheaderComponent  implements OnInit{
   }
   toggleSidebar() {
     this.isOpen = !this.isOpen;
+    console.log('Sidebar state:', this.isOpen);
   }
  
   getProfile(){
@@ -67,7 +68,13 @@ export class HomeheaderComponent  implements OnInit{
   }
 
   getActivities(){
-    this.router.navigate(['/user/activity'])
+    this.router.navigate(['/user/mis-citas'])
+  }
+  get sidebarClasses() {
+    return {
+      'translate-x-0': this.isOpen,
+      '-translate-x-full': !this.isOpen,
+    };
   }
    
 }
