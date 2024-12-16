@@ -6,37 +6,49 @@
   <div class="w-full max-w-4xl border border-butons mb-4 "></div>
 
   <!-- Contenedor de Citas -->
-  <div *ngFor="let cita of citasFiltradas" class="space-y-4 w-full max-w-3xl">
-    <!-- Citas -->
-    <div class="flex items-center justify-between bg-blue-500 rounded-full p-4 bg-butons text-bold shadow-md mb-2">
-      <div class="flex items-center">
-        <!-- Icono de la entidad -->
-        <div class="w-12 h-12 rounded-full bg-butons flex items-center justify-center mr-4">
-          <img src="favicon.ico" alt="Icono entidad" class="w-8 h-8">
+  @if (citas.length > 0) {
+    <div *ngFor="let cita of citas" class="space-y-4 w-full max-w-3xl">
+      <!-- Citas -->
+      <div class="flex items-center justify-between bg-blue-500 rounded-full p-4 bg-butons text-bold shadow-md mb-2">
+        <div class="flex items-center">
+          <!-- Icono de la entidad -->
+          <div class="w-12 h-12 rounded-full bg-butons flex items-center justify-center mr-4">
+            <img src="favicon.ico" alt="Icono entidad" class="w-8 h-8">
+          </div>
+          <div>
+            <p class="text-sm font-semibold">{{cita.idServicio.nitEntidad.nombre}}</p>
+            <p class="text-lg font-bold">{{cita.idServicio.nombre}}</p>
+          </div>
         </div>
-        <div>
-          <p class="text-sm font-semibold">{{cita.idServicio.nitEntidad.nombre}}</p>
-          <p class="text-lg font-bold">{{cita.idServicio.nombre}}</p>
+        <div class="text-right">
+          <p class="text-sm">{{cita.fechaCita}}</p>
+          <p class="text-sm">9:30 am</p>
+          <p class="text-sm">{{cita.estado}}</p>
+        </div>
+        <!-- Botones -->
+        <div class="flex space-x-2 ml-4">
+          <button (click)="deleteCita(cita.id)" class=" hover:bg-red p-2 shadow  w-8 h-8 bg-red rounded-full  hover:bg-red-600">
+            <!-- Ícono eliminar -->
+            <svg viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>delete [#ff0000]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-179.000000, -360.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M130.35,216 L132.45,216 L132.45,208 L130.35,208 L130.35,216 Z M134.55,216 L136.65,216 L136.65,208 L134.55,208 L134.55,216 Z M128.25,218 L138.75,218 L138.75,206 L128.25,206 L128.25,218 Z M130.35,204 L136.65,204 L136.65,202 L130.35,202 L130.35,204 Z M138.75,204 L138.75,200 L128.25,200 L128.25,204 L123,204 L123,206 L126.15,206 L126.15,220 L140.85,220 L140.85,206 L144,206 L144,204 L138.75,204 Z" id="delete-[#ff0000]"> </path> </g> </g> </g> </g></svg>
+          </button>
+          <button class="bg-greeen w-8 h-8 hover:bg-main p-2 rounded-full shadow">
+            <!-- Ícono editar -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#41f500"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="#ffffff" stroke="##41f500" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <polygon fill="#ffffff" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="##41f500" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon> </g> </g> </g> </g></svg>
+          </button>
         </div>
       </div>
-      <div class="text-right">
-        <p class="text-sm">{{cita.fechaCita}}</p>
-        <p class="text-sm">9:30 am</p>
-        <p class="text-sm">{{cita.estado}}</p>
-      </div>
-      <!-- Botones -->
-      <div class="flex space-x-2 ml-4">
-        <button class=" hover:bg-red p-2 shadow  w-8 h-8 bg-red rounded-full  hover:bg-red-600">
-          <!-- Ícono eliminar -->
-          <svg viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>delete [#ff0000]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-179.000000, -360.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M130.35,216 L132.45,216 L132.45,208 L130.35,208 L130.35,216 Z M134.55,216 L136.65,216 L136.65,208 L134.55,208 L134.55,216 Z M128.25,218 L138.75,218 L138.75,206 L128.25,206 L128.25,218 Z M130.35,204 L136.65,204 L136.65,202 L130.35,202 L130.35,204 Z M138.75,204 L138.75,200 L128.25,200 L128.25,204 L123,204 L123,206 L126.15,206 L126.15,220 L140.85,220 L140.85,206 L144,206 L144,204 L138.75,204 Z" id="delete-[#ff0000]"> </path> </g> </g> </g> </g></svg>
-        </button>
-        <button class="bg-greeen w-8 h-8 hover:bg-main p-2 rounded-full shadow">
-          <!-- Ícono editar -->
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#41f500"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="#ffffff" stroke="##41f500" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <polygon fill="#ffffff" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="##41f500" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon> </g> </g> </g> </g></svg>
-        </button>
-      </div>
+      
     </div>
-  </div>
+  }@else {
+    <span class="text-center font-bold m-4">No tienes ninguna cita agendada</span>
+  }
+  
+  <mat-paginator
+  [length]="totalItems"
+  [pageSize]="size"
+  (page)="onPageChange($event.pageIndex + 1)"
+>
+</mat-paginator>
 </div>
 
 

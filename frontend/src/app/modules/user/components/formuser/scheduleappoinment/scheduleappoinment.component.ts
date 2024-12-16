@@ -114,7 +114,6 @@ export class ScheduleappoinmentComponent implements OnInit {
   Swal.fire({
     title: "Estas a punto de agendar una cita",
     showDenyButton: true,
-    showCancelButton: true,
     confirmButtonText: "Agendar",
     denyButtonText: `No Agendar`,
   }).then((result) => {

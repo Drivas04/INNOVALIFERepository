@@ -22,15 +22,19 @@ export class CitaService {
   }
   
   
-  obtenerMisCitas(): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.apiUrl}/citas/mis-citas`);
+  obtenerMisCitas(page: number, size: number): Observable<{content: Cita[]; totalElements: number; totalPages: number}> {
+    return this.http.get<{content: Cita[]; totalElements: number; totalPages: number }>(`${this.apiUrl}/citas/mis-citas?page=${page}&size=${size}`);
   }
 
   
   agendarCita(citaPayload: any) {
     return this.http.post(`${this.apiUrl}/citas/agendar-cita`, citaPayload , {
       headers: { 'Content-Type': 'application/json' },
-    });
+    });   
+  }
+
+  deleteCita(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/citas/eliminar-cita/${id}`);
   }
   
   
