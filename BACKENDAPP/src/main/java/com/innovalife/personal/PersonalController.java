@@ -12,7 +12,6 @@ import java.util.List;
 @RequestMapping("/personal")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
-
 public class PersonalController {
 
     private final PersonalRepository personalRepository;
