@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  title: string = 'Holaa Footer'
+
+  
+
 }
