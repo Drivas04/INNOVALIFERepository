@@ -1,1 +1,77 @@
-<p>userprofile works!</p>
+  <app-homeheader></app-homeheader>
+  
+  <!-- Contenedor principal -->
+  <div class="bg-main h-[85vh] flex flex-col justify-start  py-6 p-8">
+    <div class="max-w-[80vw] justify-center mx-auto">
+        <!-- Título -->
+        <h2 class="text-center text-3xl font-bold text-gray-800 mb-6">Mi perfil</h2>
+
+        <div class="w-full max-w-4xl border border-butons mb-4 "></div>
+    
+        <!-- Icono de usuario -->
+        <div class="flex justify-center mb-6">
+          <div class="w-20 h-20 rounded-full bg-gray-300 flex justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A7.974 7.974 0 0112 15a7.974 7.974 0 016.879 2.804M12 15v6m0 0H9m3 0h3m-3-10a4 4 0 100-8 4 4 0 000 8z" />
+            </svg>
+          </div>
+        </div>
+    
+        <!-- Formulario -->
+         <form [formGroup]="perfilForm">
+             <div class="w-[50vw] grid grid-cols-1 md:grid-cols-2 md:w-[80vw] gap-6">
+               <!-- Nombres -->
+               <div>
+                 <label for="nombre" class="block text-sm font-medium text-gray-700">Nombres</label>
+                 <input formControlName="nombre" id="nombre" type="text" placeholder="Ingresa tus nombres"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+               </div>
+         
+               <!-- Apellidos -->
+               <div>
+                 <label for="apellido" class="block text-sm font-medium text-gray-700">Apellidos</label>
+                 <input formControlName="apellido" id="apellido" type="text" placeholder="Ingresa tus apellidos"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+               </div>
+         
+               <!-- Email -->
+               <div>
+                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                 <input formControlName="email" id="email" type="email" placeholder="ejemplo@gmail.com"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+               </div>
+         
+               <!-- Número de celular -->
+               <div>
+                 <label for="telefono" class="flex items-center gap-1 text-sm font-medium text-gray-700">
+                   Número de celular
+                   <img src="https://img.icons8.com/color/20/whatsapp.png" alt="WhatsApp Icon">
+                 </label>
+                 <input formControlName="telefono" id="celular" type="tel" placeholder="Nro. celular"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+               </div>
+             </div>
+         
+             <!-- Botones -->
+             <div class="flex gap-4 justify-between mt-8 md:gap-4">
+               <!-- Botón Salir -->
+               <button class="flex items-center text-red font-medium">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-11V4a1 1 0 10-2 0v1m2 0h-2" />
+                 </svg>
+                 Salir
+               </button>
+         
+               <!-- Botón Actualizar -->
+               <button class="bg-butons hover:bg-greeen text-white px-4 py-2 rounded-lg font-medium shadow-md">
+                 Actualizar cambios
+               </button>
+             </div>
+
+         </form>
+      </div>
+    </div>
+   
+
+
+  <app-footer></app-footer>

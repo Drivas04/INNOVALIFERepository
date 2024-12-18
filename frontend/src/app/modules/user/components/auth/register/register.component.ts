@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit{
    const objeto:User = {
     username: this.formRegistro.value.username,
     names: this.formRegistro.value.names,
-    lastnames: this.formRegistro.value.lastnames,
+    last_names: this.formRegistro.value.lastnames,
     phone: this.formRegistro.value.phone,
     email: this.formRegistro.value.email,
     password: this.formRegistro.value.password,

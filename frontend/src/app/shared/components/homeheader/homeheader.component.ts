@@ -70,12 +70,8 @@ export class HomeheaderComponent  implements OnInit{
   getActivities(){
     this.router.navigate(['/user/mis-citas'])
   }
-  get sidebarClasses() {
-    return {
-      'translate-x-0': this.isOpen,
-      '-translate-x-full': !this.isOpen,
-    };
-  }
+
+ 
    
 }
   
