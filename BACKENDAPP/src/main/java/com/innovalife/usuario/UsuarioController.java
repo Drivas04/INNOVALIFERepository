@@ -26,6 +26,26 @@ public class UsuarioController {
     private MailService mailService;
 
 
+    @PutMapping(value = "actualizar-datos")
+    public ResponseEntity<Usuario> actualizarDatos(@RequestBody Usuario usuario, @RequestParam String cedula) {
+        if(cedula == null || cedula.equals("")) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if(!userRepository.findByUsername(cedula).isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Usuario usuarioActualizado = userRepository.findByUsername(cedula).get();
+        usuarioActualizado.setNames(usuario.getNames());
+        usuarioActualizado.setLastNames(usuario.getLastNames());
+        usuarioActualizado.setPhone(usuario.getPhone());
+        usuarioActualizado.setEmail(usuario.getEmail());
+        usuarioActualizado.setPassword(usuario.getPassword());
+
+        return new ResponseEntity<>(userRepository.save(usuarioActualizado), HttpStatus.OK);
+
+    }
+
+
     @PutMapping(value = "olvido-clave")
     public ResponseEntity<String> olvidoClave(@RequestParam String email) {
         Usuario usuario = userRepository.findByEmail(email)
