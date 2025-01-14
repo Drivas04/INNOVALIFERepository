@@ -39,7 +39,6 @@ public class UsuarioController {
         usuarioActualizado.setLastNames(usuario.getLastNames());
         usuarioActualizado.setPhone(usuario.getPhone());
         usuarioActualizado.setEmail(usuario.getEmail());
-        usuarioActualizado.setPassword(usuario.getPassword());
 
         return new ResponseEntity<>(userRepository.save(usuarioActualizado), HttpStatus.OK);
 
