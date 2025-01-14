@@ -27,7 +27,7 @@
                 @if (hasErrors('lastnames', 'required')) {
                     <span class="text-sm text-center">Los apellidos son <strong>Obligatorios</strong></span>
                 }
-                <input formControlName="phone" class="font-extralight text-center w-full text-xl p-2 mt-3" type="number" placeholder="Ingresa tu numero de telefono">
+                <input formControlName="phone" class="font-extralight text-center w-full text-xl p-2 mt-3" type="text" placeholder="Ingresa tu numero de telefono">
                 @if (hasErrors('phone', 'required')) {
                     <span class="text-sm text-center">El numero es <strong>Obligatorio</strong></span>
                 }
