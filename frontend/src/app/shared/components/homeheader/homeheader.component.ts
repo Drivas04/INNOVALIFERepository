@@ -60,7 +60,7 @@ export class HomeheaderComponent  implements OnInit{
   }
   toggleSidebar() {
     this.isOpen = !this.isOpen;
-    console.log('Sidebar state:', this.isOpen);
+    
   }
  
   getProfile(){

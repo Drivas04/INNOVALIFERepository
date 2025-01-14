@@ -24,4 +24,11 @@ export class UserService {
     );
   }
 
+  public updateData(cedula: string, updateData: any){
+    return this.http.put(
+      `${this.apiUrl}/usuario/actualizar-datos?cedula=${cedula}`,
+      updateData
+    )
+  }
+
 }

@@ -18,19 +18,19 @@
         </div>
     
         <!-- Formulario -->
-         <form [formGroup]="perfilForm">
+         <form [formGroup]="perfilForm" (ngSubmit)="updateData()">
              <div class="w-[50vw] grid grid-cols-1 md:grid-cols-2 md:w-[80vw] gap-6">
                <!-- Nombres -->
                <div>
-                 <label for="nombre" class="block text-sm font-medium text-gray-700">Nombres</label>
-                 <input formControlName="nombre" id="nombre" type="text" placeholder="Ingresa tus nombres"
+                 <label for="names" class="block text-sm font-medium text-gray-700">Nombres</label>
+                 <input formControlName="names" id="names" type="text" placeholder="Ingresa tus nombres"
                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                </div>
          
                <!-- Apellidos -->
                <div>
-                 <label for="apellido" class="block text-sm font-medium text-gray-700">Apellidos</label>
-                 <input formControlName="apellido" id="apellido" type="text" placeholder="Ingresa tus apellidos"
+                 <label for="lastNames" class="block text-sm font-medium text-gray-700">Apellidos</label>
+                 <input formControlName="lastNames" id="lastNames" type="text" placeholder="Ingresa tus apellidos"
                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                </div>
          
@@ -43,11 +43,11 @@
          
                <!-- Número de celular -->
                <div>
-                 <label for="telefono" class="flex items-center gap-1 text-sm font-medium text-gray-700">
+                 <label for="phone" class="flex items-center gap-1 text-sm font-medium text-gray-700">
                    Número de celular
                    <img src="https://img.icons8.com/color/20/whatsapp.png" alt="WhatsApp Icon">
                  </label>
-                 <input formControlName="telefono" id="celular" type="tel" placeholder="Nro. celular"
+                 <input formControlName="phone" id="phone" type="tel" placeholder="Nro. celular"
                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                </div>
              </div>
@@ -63,7 +63,7 @@
                </button>
          
                <!-- Botón Actualizar -->
-               <button class="bg-butons hover:bg-greeen text-white px-4 py-2 rounded-lg font-medium shadow-md">
+               <button class="bg-butons hover:bg-greeen text-white px-4 py-2 rounded-lg font-medium shadow-md" [disabled]="perfilForm.invalid">
                  Actualizar cambios
                </button>
              </div>

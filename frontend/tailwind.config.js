@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  darkMode: 'jit',
   content: [
     "./src/**/*.{html,ts}",
     './node_modules/preline/preline.js',
@@ -27,7 +27,7 @@ module.exports = {
     },
     colors:{
       'main' : '#e9f1fa',
-      'txt main' : '#3e4560',
+      'txt-main' : '#3e4560',
       'butons' : '#00abe4',
       'white' : '#ffffff',
       'headfoot':'#e0e7ff',

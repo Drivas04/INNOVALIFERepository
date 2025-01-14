@@ -15,12 +15,12 @@ import { currentUser } from '../../../core/models/currentuser.interface';
 export class LoginService {
 
   public loginStatusSubjec = new Subject<boolean>();
-  private usuarioActualSubject = new BehaviorSubject<any>(null);
+  public usuarioActualSubject = new BehaviorSubject<any>(null);
   usuarioActual$ = this.usuarioActualSubject.asObservable();
  
   
   
-  private userKey = 'usuario'
+  public userKey = 'usuario'
   private tokenKey = 'jwt'
   private apiUrl = `${environment.apiUrl}`
 

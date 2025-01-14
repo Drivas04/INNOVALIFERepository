@@ -22,7 +22,7 @@
         <button
           *ngIf="isloggedIn"
           (click)="toggleSidebar()"
-          class="text-white text-lg font-medium py-3 px-6 rounded-full bg-butons"
+          class="text-white text-lg font-medium py-3 px-6 rounded-full  transition ease-in-out delay-150 bg-butons hover:-translate-y-1 duration-300 "
         >
           {{nombreUsuario}}
         </button>
@@ -36,8 +36,9 @@
     (click)="toggleSidebar()"
   ></div>
   <div
-  class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-500 ease-in-out"
+  class="transition ease-in-out delay-150 fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 "
   [ngClass]="{
+    'transition ease-in-out delay-150': isOpen,
     'translate-x-0': isOpen,
     '-translate-x-full': !isOpen
   }"
@@ -45,7 +46,7 @@
 
 <div class="p-4 flex justify-between items-center bg-gray-100">
   <h2 class="text-lg font-bold">SIGESME</h2>
-  <button class="font-bold" (click)="toggleSidebar()">X</button>
+  <button class="font-bold text-red hover:text-txt-main" (click)="toggleSidebar()">X</button>
 </div>
 
     <ul class="mt-6">
